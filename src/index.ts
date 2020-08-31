@@ -1,3 +1,5 @@
-import MyComponent from './components/Component'
+import Button from './components/elements/Button'
+import MyComponent from './components/Component';
 
-export { MyComponent }
+
+export { Button, MyComponent }
