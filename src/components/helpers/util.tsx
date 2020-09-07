@@ -1,5 +1,16 @@
 import {ClassNameProp, ICheckPropertyOptions} from "../../../types/bulma-react";
-import {COLORS, ELEMENT_STATES, SIZES, HTML_CONVERSIONS, ICON_POSITIONS, Color, Size, ElementState, HtmlElement} from "./constants";
+import {
+  COLORS,
+  ELEMENT_STATES,
+  SIZES,
+  HTML_CONVERSIONS,
+  ICON_POSITIONS,
+  Color,
+  Size,
+  ElementState,
+  HtmlElement,
+  SizePrefix
+} from "./constants";
 import {dashCase} from "./generic_helpers";
 import React from "react";
 
@@ -15,7 +26,7 @@ export const buildSingularClassNameProp = <T extends object>(props: T, name: str
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
 //export const outlinedClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'outlined');
 export const colorClassFor = (color: Color | string | undefined): ClassNameProp => ({ [`is-${color}`]: isColor(color) })
-export const sizeClassFor = (size: Size | string | undefined): ClassNameProp => ({ [`is-${size}`]: isSize(size) })
+export const sizeClassFor = (size: Size | string | undefined, prefix: SizePrefix = 'is'): ClassNameProp => ({ [`${prefix}-${size}`]: isSize(size) })
 export const elementStateClassFor = (state: ElementState | unknown) => ({ [`is-${state}`]: isElementState(state) });
 export const textClassFor = (textClassName: Color | unknown) => ({ [`has-text-${textClassName}`]: isColor(textClassName) });
 export const iconPositionClassFor = (position: any) => ({ [`is-${position}`]: isIconPosition(position) });
@@ -31,3 +42,5 @@ export const checkEnabledProperty = <T extends object>(props: T, property: strin
 export const checkEnabledProperties = <T extends object>(props: T, properties: string[], options?: ICheckPropertyOptions) => {
   return properties.reduce((classes, property) => Object.assign({}, classes, checkEnabledProperty(props, property, options)), {});
 };
+
+export const addonsClassFor = <T extends object>(props: T, propsName = 'addons') => checkEnabledProperties(props, [propsName], {prefix: 'has'});

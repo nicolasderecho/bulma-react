@@ -14,7 +14,9 @@ import Content from "./components/elements/Content";
 import Delete from "./components/elements/Delete";
 import IconWrapper from "./components/elements/IconWrapper";
 import Image from "./components/elements/Image";
+import Tag from "./components/elements/Tag";
+import Tags from "./components/elements/Tags";
 
-export { Button, Box, Table, TableContainer, TableRow,
+export { Button, Box, Table, TableContainer, TableRow, Tag,Tags,
   TableCell, TableCellHeader, TableBody, TableFooter, Image,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper }

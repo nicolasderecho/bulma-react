@@ -11,6 +11,7 @@ export const COLORS: Color[] =  [...MAIN_COLORS, ...EXTRA_COLORS];
 
 export const SIZES = ['small' , 'normal' , 'medium' , 'large'] as const;
 export type Size = ElementType<typeof SIZES>;
+export type SizePrefix = 'is' | 'are';
 
 export type HeroSize = Size | 'fullheight';
 export const HERO_SIZES: HeroSize[] = [...SIZES, 'fullheight'];
