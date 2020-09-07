@@ -16,7 +16,10 @@ import IconWrapper from "./components/elements/IconWrapper";
 import Image from "./components/elements/Image";
 import Tag from "./components/elements/Tag";
 import Tags from "./components/elements/Tags";
+import HeadingElement from "./components/elements/HeadingElement";
+import Title from "./components/elements/Title";
+import Subtitle from "./components/elements/Subtitle";
 
-export { Button, Box, Table, TableContainer, TableRow, Tag,Tags,
-  TableCell, TableCellHeader, TableBody, TableFooter, Image,
-  TableHead, ProgressBar, Notification, Content, Delete, IconWrapper }
+export { Button, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
+  TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
+  TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle }
