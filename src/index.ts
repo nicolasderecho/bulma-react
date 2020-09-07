@@ -1,5 +1,4 @@
 import Button from './components/elements/Button'
-import MyComponent from './components/Component';
+import Box from './components/elements/Box';
 
-
-export { Button, MyComponent }
+export { Button, Box }

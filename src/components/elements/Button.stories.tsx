@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Button, {ButtonProps} from './Button'
 import '../../index.scss';
-import {Color, Size} from "../../../types/bulma-react";
+import {Color, Size} from "../helpers/constants";
 
 export default { title: 'Button' }
 

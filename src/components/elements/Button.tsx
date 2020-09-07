@@ -1,9 +1,8 @@
 import * as React from 'react'
-import classNames from 'classnames';
-import {Color, ElementState, Size, ButtonElement} from "../../../types/bulma-react";
-import { colorClassFor, sizeClassFor, checkEnabledProperties, elementStateClassFor, htmlElementFor, isRenderedAs } from "../helpers/util";
 import PropTypes from 'prop-types';
-import {COLORS, ELEMENT_STATES, SIZES, BUTTON_ELEMENTS, BUTTON_TYPES} from "../helpers/constants";
+import classNames from 'classnames';
+import { colorClassFor, sizeClassFor, checkEnabledProperties, elementStateClassFor, htmlElementFor, isRenderedAs } from "../helpers/util";
+import {COLORS, ELEMENT_STATES, SIZES, BUTTON_ELEMENTS, BUTTON_TYPES, ButtonElement, Color, ElementState, Size} from "../helpers/constants";
 
 type ButtonProps = {
   color?: Color;
