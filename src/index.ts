@@ -25,4 +25,4 @@ import List from "./components/elements/List";
 export { Button, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,
-  ListItemProps, List}
+  ListItemProps, List }
