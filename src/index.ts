@@ -19,7 +19,10 @@ import Tags from "./components/elements/Tags";
 import HeadingElement from "./components/elements/HeadingElement";
 import Title from "./components/elements/Title";
 import Subtitle from "./components/elements/Subtitle";
+import ListItemProps from "./components/elements/ListItem";
+import List from "./components/elements/List";
 
 export { Button, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
-  TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle }
+  TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,
+  ListItemProps, List}

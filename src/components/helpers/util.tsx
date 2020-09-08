@@ -5,11 +5,12 @@ import {
   SIZES,
   HTML_CONVERSIONS,
   ICON_POSITIONS,
+  BUTTON_POSITIONS,
   Color,
   Size,
   ElementState,
   HtmlElement,
-  SizePrefix, SizeNumber, SIZE_NUMBERS
+  SizePrefix, SizeNumber, SIZE_NUMBERS, IconPosition, ButtonPosition
 } from "./constants";
 import {dashCase} from "./generic_helpers";
 import React from "react";
@@ -20,8 +21,10 @@ export const isColor = (value: any): value is Color => COLORS.includes(value);
 export const isElementState = (value: any): value is ElementState =>  ELEMENT_STATES.includes(value);
 export const isSize = (value: any): value is Size => SIZES.includes(value);
 export const isSizeNumber = (value: any): value is SizeNumber => SIZE_NUMBERS.includes(value);
-export const isIconPosition = (value: any) => ICON_POSITIONS.includes(value);
+export const isIconPosition = (value: any): value is IconPosition => ICON_POSITIONS.includes(value);
+export const isButtonPosition = (value: any): value is ButtonPosition => BUTTON_POSITIONS.includes(value);
 export const isEnabled = <T extends object>(props: T, key: string): boolean => props.hasOwnProperty(key) && props[key] !== false && props[key] !== 'false';
+export const isDefined = <X extends {}, Y extends PropertyKey>(obj: X, prop: Y): obj is X & Record<Y, unknown> => obj.hasOwnProperty(prop);
 
 export const buildSingularClassNameProp = <T extends object>(props: T, name: string): ClassNameProp => ({ [`is-${name}`]: isEnabled(props, name) });
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
@@ -47,3 +50,5 @@ export const checkEnabledProperties = <T extends object>(props: T, properties: s
 export const addonsClassFor = <T extends object>(props: T, propsName = 'addons') => checkEnabledProperties(props, [propsName], {prefix: 'has'});
 
 export const sizeNumberClassFor = (sizeNumber: SizeNumber | unknown) => ({ [`is-${sizeNumber}`]: !!sizeNumber && isSizeNumber(sizeNumber) });
+
+export const buttonPositionClassFor = (position: ButtonPosition | unknown) => ({ [`is-${position}`]: isButtonPosition(position) });
