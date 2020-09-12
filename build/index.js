@@ -1167,13 +1167,16 @@ var COLORS = __spreadArrays(MAIN_COLORS, EXTRA_COLORS);
 var SIZES = ['small', 'normal', 'medium', 'large'];
 var HERO_SIZES = __spreadArrays(SIZES, ['fullheight']);
 var SIZE_NUMBERS = ['1', '2', '3', '4', '5', '6'];
+var BUTTON_POSITIONS = ['centered', 'right'];
 var ELEMENT_STATES = ['hovered', 'focused', 'normal', 'active'];
 var BUTTON_ELEMENTS = ['a', 'input', 'link', 'button', 'div', 'span'];
 var BUTTON_TYPES = ['button', 'submit', 'reset'];
 var HTML_CONVERSIONS = { link: 'a' };
 var IMAGE_DIMENSIONS = ['16x16', '24x24', '32x32', '48x48', '64x64', '96x96', '128x128', 'square', '1by1', '5by4', '4by3', '3by2', '5by3', '16by9', '2by1', '3by1', '4by5', '3by4', '2by3', '3by5', '9by16', '1by2', '1by3'];
 
+var capitalize = function (string) { return string.charAt(0).toUpperCase() + string.slice(1); };
 var dashCase = function (string) { return string.replace(/([A-Z])/g, function ($1) { return "-" + $1.toLowerCase(); }); };
+var camelCase = function (string) { return string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); }); };
 
 var isNil = function (value) { return value === null || value === undefined; };
 var isNotNil = function (value) { return !isNil(value); };
@@ -1181,6 +1184,7 @@ var isColor = function (value) { return COLORS.includes(value); };
 var isElementState = function (value) { return ELEMENT_STATES.includes(value); };
 var isSize = function (value) { return SIZES.includes(value); };
 var isSizeNumber = function (value) { return SIZE_NUMBERS.includes(value); };
+var isButtonPosition = function (value) { return BUTTON_POSITIONS.includes(value); };
 var isEnabled = function (props, key) { return props.hasOwnProperty(key) && props[key] !== false && props[key] !== 'false'; };
 var isDefined = function (obj, prop) { return obj.hasOwnProperty(prop); };
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
@@ -1220,6 +1224,10 @@ var addonsClassFor = function (props, propsName) {
 var sizeNumberClassFor = function (sizeNumber) {
     var _a;
     return (_a = {}, _a["is-" + sizeNumber] = !!sizeNumber && isSizeNumber(sizeNumber), _a);
+};
+var buttonPositionClassFor = function (position) {
+    var _a;
+    return (_a = {}, _a["is-" + position] = isButtonPosition(position), _a);
 };
 
 var Button = function (_a) {
@@ -1577,16 +1585,204 @@ List.propTypes = {
     as: propTypes.oneOf(LIST_TYPES)
 };
 
+var _a$1;
+var ONE_THIRD_ALIAS = '1/3';
+var TWO_THIRDS_ALIAS = '2/3';
+var ONE_QUARTER_ALIAS = '1/4';
+var HALF_ALIAS = '1/2';
+var THREE_QUARTERS_ALIAS = '3/4';
+var ONE_FIFTH_ALIAS = '1/5';
+var TWO_FIFTHS_ALIAS = '2/5';
+var THREE_FIFTHS_ALIAS = '3/5';
+var FOURT_FIFTHS_ALIAS = '4/5';
+var THREE_QUARTERS = 'three-quarters';
+var TWO_THIRDS = 'two-thirds';
+var HALF = 'half';
+var ONE_THIRD = 'one-third';
+var ONE_QUARTER = 'one-quarter';
+var FULL = 'full';
+var FOURT_FIFTHS = 'four-fifths';
+var THREE_FIFTHS = 'three-fifths';
+var TWO_FIFTHS = 'two-fifths';
+var ONE_FIFTH = 'one-fifth';
+var COLUMN_SIZE_NUMBERS = ['1', 1, '2', 2, '3', 3, '4', 4, '5', 5, '6', 6, '7', 7, '8', 8, '9', 9, '10', 10, '11', 11, '12', 12];
+var ORIGINAL_COLUMN_SIZES = __spreadArrays(COLUMN_SIZE_NUMBERS, [THREE_QUARTERS, TWO_THIRDS, HALF, ONE_THIRD, ONE_QUARTER, FULL, FOURT_FIFTHS, THREE_FIFTHS, TWO_FIFTHS, ONE_FIFTH]);
+var COLUMN_SIZES_ALIASES = [ONE_THIRD_ALIAS, TWO_THIRDS_ALIAS, ONE_QUARTER_ALIAS, HALF_ALIAS, THREE_QUARTERS_ALIAS, ONE_FIFTH_ALIAS, TWO_FIFTHS_ALIAS, THREE_FIFTHS_ALIAS, FOURT_FIFTHS_ALIAS];
+var COLUMN_SIZES = __spreadArrays(ORIGINAL_COLUMN_SIZES, COLUMN_SIZES_ALIASES);
+var MOBILE = 'mobile';
+var TABLET = 'tablet';
+var TOUCH = 'touch';
+var DESKTOP = 'desktop';
+var WIDESCREEN = 'widescreen';
+var FULLHD = 'fullhd';
+var DEVICES = [MOBILE, TABLET, TOUCH, DESKTOP, WIDESCREEN, FULLHD];
+var GAP_SIZES = [0, '0', 1, '1', 2, '2', 3, '3', 4, '4', 5, '5', 6, '6', 7, '7', 8, '8'];
+var COLUMN_SIZES_ALIASES_HASH = (_a$1 = {},
+    _a$1[ONE_THIRD_ALIAS] = ONE_THIRD,
+    _a$1[TWO_THIRDS_ALIAS] = TWO_THIRDS,
+    _a$1[ONE_QUARTER_ALIAS] = ONE_QUARTER,
+    _a$1[HALF_ALIAS] = HALF,
+    _a$1[THREE_QUARTERS_ALIAS] = THREE_QUARTERS,
+    _a$1[TWO_FIFTHS_ALIAS] = TWO_FIFTHS,
+    _a$1[THREE_FIFTHS_ALIAS] = THREE_FIFTHS,
+    _a$1[FOURT_FIFTHS_ALIAS] = FOURT_FIFTHS,
+    _a$1[ONE_FIFTH_ALIAS] = ONE_FIFTH,
+    _a$1);
+var ORIGINAL_COLUMN_SIZES_HASH = ORIGINAL_COLUMN_SIZES.reduce(function (hash, columnSize) {
+    var _a;
+    return Object.assign({}, hash, (_a = {}, _a[columnSize] = columnSize, _a));
+}, {});
+var COLUMN_SIZES_HASH = Object.assign({}, ORIGINAL_COLUMN_SIZES_HASH, COLUMN_SIZES_ALIASES_HASH);
+var columnDimensionClassFor = function (columnSize, prefix, suffix) {
+    var _a;
+    if (suffix === void 0) { suffix = ''; }
+    var key = prefix + "-" + COLUMN_SIZES_HASH[columnSize];
+    var finalKey = !!suffix ? key + "-" + suffix : key;
+    return _a = {}, _a[finalKey] = !!COLUMN_SIZES_HASH[columnSize], _a;
+};
+var columnSizeClassFor = function (columnSize, suffix) {
+    if (suffix === void 0) { suffix = ''; }
+    return columnDimensionClassFor(columnSize, 'is', suffix);
+};
+var columnOffsetlassFor = function (columnSize, suffix) {
+    if (suffix === void 0) { suffix = ''; }
+    return columnDimensionClassFor(columnSize, 'is-offset', suffix);
+};
+var isDevice = function (value) { return DEVICES.includes(value); };
+var isValidGap = function (value) { return GAP_SIZES.includes(value); };
+var gapSizeFor = function (gap) {
+    var _a;
+    return (_a = {}, _a["is-" + gap] = isValidGap(gap), _a);
+};
+var gapSizeForDevices = function (props) {
+    return DEVICES.map(function (device) {
+        var _a;
+        var gap = props["gap" + capitalize(device)];
+        return _a = {}, _a["is-" + gap + "-" + device] = isValidGap(gap), _a;
+    });
+};
+var variableGapClassFor = function (gap, props) {
+    var deviceGapValidations = DEVICES.map(function (device) { return isValidGap(props["gap" + capitalize(device)]); }).reduce(function (acum, value) { return acum || value; });
+    return { 'is-variable': isValidGap(gap) || deviceGapValidations };
+};
+var deviceActiveClassFor = function (fromDevice) {
+    var _a;
+    return (_a = {}, _a["is-" + fromDevice] = isDevice(fromDevice), _a);
+};
+
+var checkDerivedClasses = function (props, object, device) {
+    var _a, _b;
+    return Object.assign({}, {
+        narrow: object.narrow.concat((_a = {}, _a["is-narrow-" + device] = isEnabled(props, device + "Narrow"), _a)),
+        device: object.device.concat((_b = {}, _b["is-" + device] = isEnabled(props, "" + camelCase(device)), _b)),
+        deviceColumnSizes: object.deviceColumnSizes.concat(columnSizeClassFor(props[device + "ColumnSize"], device)),
+        deviceOffsets: object.deviceOffsets.concat(columnOffsetlassFor(props[device + "Offset"], device))
+    });
+};
+var Column = function (_a) {
+    var originalProps = __rest(_a, []);
+    var className = originalProps.className, as = originalProps.as, columnSize = originalProps.columnSize, offset = originalProps.offset, props = __rest(originalProps, ["className", "as", "columnSize", "offset", "mobileColumnSize", "tabletColumnSize", "touchColumnSize", "desktopColumnSize", "widescreenColumnSize", "fullhdColumnSize", "mobileOffset", "tabletOffset", "touchOffset", "desktopOffset", "widescreenOffset", "fullhdOffset", "narrow", "mobileNarrow", "tabletNarrow", "touchNarrow", "desktopNarrow", "widescreenNarrow", "fullhdNarrow"]);
+    var Element = htmlElementFor(as, 'div');
+    var derivedClasses = DEVICES.reduce(function (object, device) { return checkDerivedClasses(originalProps, object, device); }, { narrow: [], device: [], deviceColumnSizes: [], deviceOffsets: [] });
+    var classes = classNames__default['default'].apply(void 0, __spreadArrays([className, 'column', columnSizeClassFor(columnSize), columnOffsetlassFor(offset), { 'is-narrow': isEnabled(originalProps, 'narrow') }], derivedClasses.narrow, derivedClasses.device, derivedClasses.deviceColumnSizes, derivedClasses.deviceOffsets));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Column.displayName = 'Column';
+Column.propTypes = {
+    className: propTypes.string,
+    columnSize: propTypes.oneOf(COLUMN_SIZES),
+    offset: propTypes.oneOf(COLUMN_SIZES),
+    mobileColumnSize: propTypes.oneOf(COLUMN_SIZES),
+    tabletColumnSize: propTypes.oneOf(COLUMN_SIZES),
+    touchColumnSize: propTypes.oneOf(COLUMN_SIZES),
+    desktopColumnSize: propTypes.oneOf(COLUMN_SIZES),
+    widescreenColumnSize: propTypes.oneOf(COLUMN_SIZES),
+    fullhdColumnSize: propTypes.oneOf(COLUMN_SIZES),
+    mobileOffset: propTypes.oneOf(COLUMN_SIZES),
+    tabletOffset: propTypes.oneOf(COLUMN_SIZES),
+    touchOffset: propTypes.oneOf(COLUMN_SIZES),
+    desktopOffset: propTypes.oneOf(COLUMN_SIZES),
+    widescreenOffset: propTypes.oneOf(COLUMN_SIZES),
+    fullhdOffset: propTypes.oneOf(COLUMN_SIZES),
+    narrow: propTypes.bool,
+    mobileNarrow: propTypes.bool,
+    tabletNarrow: propTypes.bool,
+    touchNarrow: propTypes.bool,
+    desktopNarrow: propTypes.bool,
+    widescreenNarrow: propTypes.bool,
+    fullhdNarrow: propTypes.bool,
+    mobile: propTypes.bool,
+    tablet: propTypes.bool,
+    touch: propTypes.bool,
+    desktop: propTypes.bool,
+    widescreen: propTypes.bool,
+    fullhd: propTypes.bool
+};
+
+var Columns = function (_a) {
+    var originalProps = __rest(_a, []);
+    var className = originalProps.className, as = originalProps.as, from = originalProps.from, gap = originalProps.gap, props = __rest(originalProps, ["className", "as", "from", "gap", "gapless", "multiline", "centered", "vcentered"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'].apply(void 0, __spreadArrays([className, 'columns', checkEnabledProperties(originalProps, ['gapless', 'multiline', 'centered', 'vcentered']), deviceActiveClassFor(from), gapSizeFor(gap), variableGapClassFor(gap, originalProps)], gapSizeForDevices(originalProps)));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Columns.displayName = 'Columns';
+Columns.propTypes = {
+    className: propTypes.string,
+    from: propTypes.oneOf(DEVICES),
+    gapless: propTypes.bool,
+    multiline: propTypes.bool,
+    centered: propTypes.bool,
+    vcentered: propTypes.bool,
+    gap: propTypes.oneOf(GAP_SIZES),
+    gapMobile: propTypes.oneOf(GAP_SIZES),
+    gapTablet: propTypes.oneOf(GAP_SIZES),
+    gapTouch: propTypes.oneOf(GAP_SIZES),
+    gapDesktop: propTypes.oneOf(GAP_SIZES),
+    gapWidescreen: propTypes.oneOf(GAP_SIZES),
+    gapFullhd: propTypes.oneOf(GAP_SIZES)
+};
+Columns.Column = Column;
+
+var Buttons = function (_a) {
+    var originalProps = __rest(_a, []);
+    var className = originalProps.className, size = originalProps.size, position = originalProps.position, props = __rest(originalProps, ["className", "size", "position"]);
+    var classes = classNames__default['default'](className, 'buttons', sizeClassFor(size, 'are'), buttonPositionClassFor(position), addonsClassFor(props));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+Buttons.displayName = 'Buttons';
+Buttons.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES),
+    addons: propTypes.bool,
+    position: propTypes.oneOf(BUTTON_POSITIONS)
+};
+
+var OrderedList = function (props) { return React__default['default'].createElement(List, __assign({ as: 'ol' }, props)); };
+OrderedList.displayName = 'OrderedList';
+OrderedList.Item = ListItem;
+var UnorderedList = function (props) { return React__default['default'].createElement(List, __assign({ as: 'ul' }, props)); };
+UnorderedList.displayName = 'UnorderedList';
+UnorderedList.Item = ListItem;
+var DescriptionList = function (props) { return React__default['default'].createElement(List, __assign({ as: 'dl' }, props)); };
+DescriptionList.displayName = 'DescriptionList';
+DescriptionList.Item = ListItem;
+
 exports.Box = Box;
 exports.Button = Button;
+exports.Buttons = Buttons;
+exports.Column = Column;
+exports.Columns = Columns;
 exports.Content = Content;
 exports.Delete = Delete;
+exports.DescriptionList = DescriptionList;
 exports.HeadingElement = HeadingElement;
 exports.IconWrapper = IconWrapper;
 exports.Image = Image;
 exports.List = List;
 exports.ListItemProps = ListItem;
 exports.Notification = Notification;
+exports.OrderedList = OrderedList;
 exports.ProgressBar = ProgressBar;
 exports.Subtitle = Subtitle;
 exports.Table = Table;
@@ -1600,4 +1796,5 @@ exports.TableRow = TableRow;
 exports.Tag = Tag;
 exports.Tags = Tags;
 exports.Title = Title;
+exports.UnorderedList = UnorderedList;
 //# sourceMappingURL=index.js.map

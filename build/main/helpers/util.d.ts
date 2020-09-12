@@ -1,5 +1,5 @@
 import { ClassNameProp, ICheckPropertyOptions } from "../../../types/bulma-react";
-import { Color, Size, ElementState, HtmlElement, SizePrefix, SizeNumber, ButtonPosition } from "./constants";
+import { Color, Size, ElementState, HtmlElement, SizePrefix, SizeNumber, ButtonPosition, Alignment } from "./constants";
 import React from "react";
 export declare const isNil: <T>(value: T) => boolean;
 export declare const isNotNil: <T>(value: T) => boolean;
@@ -11,6 +11,7 @@ export declare const isIconPosition: (value: any) => value is "left" | "right";
 export declare const isButtonPosition: (value: any) => value is "right" | "centered";
 export declare const isEnabled: <T extends object>(props: T, key: string) => boolean;
 export declare const isDefined: <X extends {}, Y extends string | number | symbol>(obj: X, prop: Y) => obj is X & Record<Y, unknown>;
+export declare const isAlignment: (value: any) => value is "right" | "centered";
 export declare const buildSingularClassNameProp: <T extends object>(props: T, name: string) => ClassNameProp;
 export declare const colorClassFor: (color: Color | string | undefined) => ClassNameProp;
 export declare const sizeClassFor: (size: Size | string | undefined, prefix?: SizePrefix) => ClassNameProp;
@@ -36,3 +37,5 @@ export declare const sizeNumberClassFor: (sizeNumber: SizeNumber | unknown) => {
 export declare const buttonPositionClassFor: (position: ButtonPosition | unknown) => {
     [x: string]: boolean;
 };
+export declare const alignmentClassFor: (alignment: Alignment | unknown, { prefix }?: ICheckPropertyOptions) => ClassNameProp;
+export declare const groupedClassFor: <T extends object>(props: T, propsName?: string) => ClassNameProp;

@@ -17,4 +17,4 @@ declare type ListComponent = {
 } & React.FC<ListProps>;
 declare const List: ListComponent;
 export default List;
-export { List, ListProps, ListType, LIST_TYPES, LIST_MARKERS, ListMarker };
+export { List, ListProps, ListType, LIST_TYPES, LIST_MARKERS, ListMarker, ListComponent };
