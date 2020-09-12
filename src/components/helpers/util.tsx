@@ -1,17 +1,5 @@
 import {ClassNameProp, ICheckPropertyOptions} from "../../../types/bulma-react";
-import {
-  COLORS,
-  ELEMENT_STATES,
-  SIZES,
-  HTML_CONVERSIONS,
-  ICON_POSITIONS,
-  BUTTON_POSITIONS,
-  Color,
-  Size,
-  ElementState,
-  HtmlElement,
-  SizePrefix, SizeNumber, SIZE_NUMBERS, IconPosition, ButtonPosition
-} from "./constants";
+import {COLORS, ELEMENT_STATES, SIZES, HTML_CONVERSIONS, ICON_POSITIONS, BUTTON_POSITIONS, Color, Size, ElementState, HtmlElement, SizePrefix, SizeNumber, SIZE_NUMBERS, IconPosition, ButtonPosition} from "./constants";
 import {dashCase} from "./generic_helpers";
 import React from "react";
 

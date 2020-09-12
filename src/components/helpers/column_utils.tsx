@@ -1,4 +1,5 @@
 import {ClassNameProp, ElementType} from "../../../types/bulma-react";
+import {capitalize} from "./generic_helpers";
 
 export const ONE_THIRD_ALIAS = '1/3' as const;
 export const TWO_THIRDS_ALIAS = '2/3' as const;
@@ -40,7 +41,6 @@ export type Device = ElementType<typeof DEVICES>;
 export const GAP_SIZES = [ 0, '0', 1, '1', 2, '2', 3, '3', 4, '4', 5, '5', 6, '6', 7, '7', 8, '8' ] as const;
 export type GapSize = ElementType<typeof GAP_SIZES>;
 
-
 export const COLUMN_SIZES_ALIASES_HASH = {
   [ONE_THIRD_ALIAS]: ONE_THIRD,
   [TWO_THIRDS_ALIAS]: TWO_THIRDS,
@@ -63,3 +63,18 @@ export const columnDimensionClassFor = (columnSize: ColumnSize | unknown, prefix
 
 export const columnSizeClassFor = (columnSize: ColumnSize  | unknown, suffix = ''): ClassNameProp => columnDimensionClassFor(columnSize, 'is', suffix);
 export const columnOffsetlassFor = (columnSize: ColumnSize | unknown, suffix = ''): ClassNameProp => columnDimensionClassFor(columnSize, 'is-offset', suffix);
+export const isDevice = (value: any): value is Device => DEVICES.includes(value);
+export const isValidGap = (value: any): value is GapSize => GAP_SIZES.includes(value);
+
+export const gapSizeFor = (gap: GapSize | unknown) => ({ [`is-${gap}`]: isValidGap(gap)});
+export const gapSizeForDevices = <T extends object>(props: T): ClassNameProp[] => {
+  return DEVICES.map((device: Device) => {
+    const gap = props[`gap${capitalize(device)}`];
+    return { [`is-${gap}-${device}`]: isValidGap(gap) };
+  });
+};
+export const variableGapClassFor = <T extends object>(gap: GapSize | unknown, props: T): ClassNameProp => {
+  const deviceGapValidations = DEVICES.map((device: Device) => isValidGap(props[`gap${capitalize(device)}`])).reduce((acum: boolean, value: boolean) => acum || value);
+  return { 'is-variable': isValidGap(gap) || deviceGapValidations };
+};
+export const deviceActiveClassFor = (fromDevice: Device | unknown): ClassNameProp => ({ [`is-${fromDevice}`]: isDevice(fromDevice) });

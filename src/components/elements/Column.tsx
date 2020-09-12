@@ -58,7 +58,7 @@ const checkDerivedClasses = (props: ColumnProps, object: DeviceClassProps, devic
 });
 
 const Column: React.FC<ColumnProps> = ({ ...originalProps }) => {
-  const { className, as, columnSize, offset, mobileColumnSize, tabletColumnSize, touchColumnSize, desktopColumnSize, widescreenColumnSize, fullhdColumnSize, mobileOffset, tabletOffset, touchOffset, desktopOffset, widescreenOffset, fullhdOffset, narrow, mobileNarrow, tabletNarrow, touchNarrow, desktopNarrow, widescreenNarrow, ...props } = originalProps;
+  const { className, as, columnSize, offset, mobileColumnSize, tabletColumnSize, touchColumnSize, desktopColumnSize, widescreenColumnSize, fullhdColumnSize, mobileOffset, tabletOffset, touchOffset, desktopOffset, widescreenOffset, fullhdOffset, narrow, mobileNarrow, tabletNarrow, touchNarrow, desktopNarrow, widescreenNarrow, fullhdNarrow, ...props } = originalProps;
   const Element = htmlElementFor(as, 'div');
   const derivedClasses = DEVICES.reduce((object: DeviceClassProps, device: Device): DeviceClassProps => checkDerivedClasses(originalProps, object, device), { narrow: [], device: [], deviceColumnSizes: [], deviceOffsets: []});
   const classes = classNames(className, 'column', columnSizeClassFor(columnSize), columnOffsetlassFor(offset), {'is-narrow': isEnabled(originalProps, 'narrow')}, ...derivedClasses.narrow, ...derivedClasses.device, ...derivedClasses.deviceColumnSizes, ...derivedClasses.deviceOffsets);
