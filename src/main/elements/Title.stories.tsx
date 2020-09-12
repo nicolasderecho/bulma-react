@@ -3,7 +3,7 @@ import Title, {TitleProps} from './Title'
 import {SIZE_NUMBERS} from "../helpers/constants";
 import Subtitle from "./Subtitle";
 
-export default { title: 'Title' }
+export default { title: 'Elements/Title' }
 
 export const basic = (): React.FunctionComponentElement<TitleProps> => <Title className={'custom-notification'} >
   Simple Title

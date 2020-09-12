@@ -2,7 +2,7 @@ import * as React from 'react'
 import Notification, {NotificationProps} from './Notification'
 import { COLORS} from "../helpers/constants";
 
-export default { title: 'Notification' }
+export default { title: 'Elements/Notification' }
 
 export const basic = (): React.FunctionComponentElement<NotificationProps> => <Notification className={'custom-notification'} >
   Simple Noti

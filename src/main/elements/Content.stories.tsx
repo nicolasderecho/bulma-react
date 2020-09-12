@@ -2,7 +2,7 @@ import * as React from 'react'
 import Content, {ContentProps} from './Content'
 import {SIZES, Size} from "../helpers/constants";
 
-export default { title: 'Content' }
+export default { title: 'Elements/Content' }
 
 export const basic = (): React.FunctionComponentElement<ContentProps> => <Content className={'my-content'} >Simple Content</Content>
 

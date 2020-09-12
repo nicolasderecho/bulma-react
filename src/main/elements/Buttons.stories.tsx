@@ -3,7 +3,7 @@ import Buttons, {ButtonsProps} from './Buttons'
 import {SIZES} from "../helpers/constants";
 import Button from "./Button";
 
-export default { title: 'Buttons' }
+export default { title: 'Elements/Buttons' }
 
 export const basic = (): React.FunctionComponentElement<ButtonsProps> => <Buttons className={'custom-container'} >
   <Button>a button</Button>

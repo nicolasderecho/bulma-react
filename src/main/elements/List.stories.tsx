@@ -2,7 +2,7 @@ import * as React from 'react'
 import List, {LIST_MARKERS, LIST_TYPES, ListProps} from './List'
 import Content from "./Content";
 
-export default { title: 'List' }
+export default { title: 'Elements/List' }
 
 export const basic = (): React.FunctionComponentElement<ListProps> => <List className={'custom-list'} >
   <List.Item>Coffee</List.Item>

@@ -3,7 +3,7 @@ import Button, {ButtonProps} from './Button'
 import '../../index.scss';
 import {Color, Size} from "../helpers/constants";
 
-export default { title: 'Button' }
+export default { title: 'Elements/Button' }
 
 export const basic = (): React.FunctionComponentElement<ButtonProps> => <Button className={'pepe'} color={undefined}>Simple Button</Button>
 

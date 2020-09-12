@@ -2,7 +2,7 @@ import * as React from 'react'
 import Delete, {DeleteProps} from "./Delete";
 import {SIZES, Size} from "../helpers/constants";
 
-export default { title: 'Delete' }
+export default { title: 'Elements/Delete' }
 
 export const basic = (): React.FunctionComponentElement<DeleteProps> => <Delete className={'my-content'} />
 

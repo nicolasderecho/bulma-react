@@ -38,3 +38,5 @@ Field.Label = FieldLabel;
 Field.Body  = FieldBody;
 
 export default Field;
+
+export { Field, FieldProps, FieldComponent }

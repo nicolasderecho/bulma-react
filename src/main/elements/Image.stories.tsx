@@ -3,7 +3,7 @@ import Image, {ImageProps} from './Image'
 
 const IMAGE_SRC = 'https://bulma.io/images/placeholders/128x128.png';
 
-export default { title: 'Image' }
+export default { title: 'Elements/Image' }
 
 export const basic = (): React.FunctionComponentElement<ImageProps> => <Image src={IMAGE_SRC} />
 

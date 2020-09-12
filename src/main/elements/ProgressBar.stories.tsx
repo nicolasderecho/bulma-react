@@ -2,7 +2,7 @@ import * as React from 'react'
 import ProgressBar, {ProgressBarProps} from './ProgressBar'
 import {COLORS, SIZES} from "../helpers/constants";
 
-export default { title: 'ProgressBar' }
+export default { title: 'Elements/ProgressBar' }
 
 export const basic = (): React.FunctionComponentElement<ProgressBarProps> => <ProgressBar className={'custom-bar'} value={25} max={100} >
   Simple Noti

@@ -3,7 +3,7 @@ import Tag, {TagProps} from './Tag'
 import {COLORS, SIZES} from "../helpers/constants";
 import Tags from "./Tags";
 
-export default { title: 'Tag' }
+export default { title: 'Elements/Tag' }
 
 export const basic = (): React.FunctionComponentElement<TagProps> => <Tag className={'custom-tag'} >
   A tag

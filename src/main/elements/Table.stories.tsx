@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Table, {TableProps} from './Table'
 
-export default { title: 'Table' }
+export default { title: 'Elements/Table' }
 
 const exampleTableContent = () => <>
   <Table.Head>

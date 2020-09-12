@@ -7,7 +7,7 @@ import {Color} from "../helpers/constants";
 import Tag from "./Tag";
 import Tags from "./Tags";
 
-export default { title: 'Column' }
+export default { title: 'Elements/Column' }
 
 const columnContent = (text: string | number): JSX.Element => {
   const styles: CSSProperties = {backgroundColor: '#00d1b2', color: '#fff', borderRadius: '4px', padding: '1.25rem 0', textAlign: 'center', position: 'relative', fontWeight: 600, margin: 0};
