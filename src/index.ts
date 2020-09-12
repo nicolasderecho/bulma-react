@@ -21,8 +21,12 @@ import Title from "./components/elements/Title";
 import Subtitle from "./components/elements/Subtitle";
 import ListItemProps from "./components/elements/ListItem";
 import List from "./components/elements/List";
+import Column from "./components/elements/Column";
+import Columns from "./components/elements/Columns";
+import Buttons from "./components/elements/Buttons";
+import {DescriptionList, OrderedList, UnorderedList} from "./components/elements/ListTypes";
 
-export { Button, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
+export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,
-  ListItemProps, List }
+  ListItemProps, List, Column, Columns, OrderedList, UnorderedList, DescriptionList }
