@@ -2,6 +2,8 @@ import * as React from 'react'
 import Button, {ButtonProps} from './Button'
 import '../../index.scss';
 import {Color, Size} from "../helpers/constants";
+import ButtonGroup from "./ButtonGroup";
+import Buttons from "./Buttons";
 
 export default { title: 'Elements/Button' }
 
@@ -61,3 +63,13 @@ export const asElement = () => <>
   <Button  as={'div'} value={'button'}>div button</Button>
   <Button  as={'input'} value={'Input Button'} />
 </>
+
+export const grouped = () => {
+  return <ButtonGroup>
+    <Buttons addons>
+      <Button>First Option</Button>
+      <Button>Second Option</Button>
+      <Button>Third Option</Button>
+    </Buttons>
+  </ButtonGroup>
+}

@@ -50,7 +50,7 @@ export const BUTTON_TYPES = ['button', 'submit', 'reset'] as const;
 export type ButtonType = ElementType<typeof BUTTON_ELEMENTS>;
 
 export const HTML_CONVERSIONS = { link: 'a' } as const;
-export type HtmlElement = Exclude<ButtonElement, 'link'>;
+export type HtmlElement = Exclude<ButtonElement, 'link'> | 'hgroup' | 'main' | 'nav' | 'section' | 'header' | 'footer' | 'article' | 'aside' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'ul' | 'ol' | 'dl';
 
 export const IMAGE_DIMENSIONS = ['16x16','24x24','32x32','48x48','64x64','96x96','128x128','square','1by1','5by4','4by3','3by2','5by3','16by9','2by1','3by1','4by5','3by4','2by3','3by5','9by16','1by2','1by3'] as const;
 export type ImageDimension = ElementType<typeof IMAGE_DIMENSIONS>;

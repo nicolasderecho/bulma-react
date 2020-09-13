@@ -14,6 +14,7 @@ export const isButtonPosition = (value: any): value is ButtonPosition => BUTTON_
 export const isEnabled = <T extends object>(props: T, key: string): boolean => props.hasOwnProperty(key) && props[key] !== false && props[key] !== 'false';
 export const isDefined = <X extends {}, Y extends PropertyKey>(obj: X, prop: Y): obj is X & Record<Y, unknown> => obj.hasOwnProperty(prop);
 export const isAlignment = (value: any): value is Alignment => ALIGNMENTS.includes(value);
+export const isState = (value: any): value is ElementState => ELEMENT_STATES.includes(value);
 
 export const buildSingularClassNameProp = <T extends object>(props: T, name: string): ClassNameProp => ({ [`is-${name}`]: isEnabled(props, name) });
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
@@ -45,3 +46,5 @@ export const buttonPositionClassFor = (position: ButtonPosition | unknown) => ({
 export const alignmentClassFor = (alignment: Alignment | unknown, { prefix = 'is' }: ICheckPropertyOptions = { prefix: 'is' }): ClassNameProp => ({ [`${prefix}-${alignment}`]: isAlignment(alignment) });
 
 export const groupedClassFor = <T extends object>(props: T, propsName = 'grouped'): ClassNameProp => ( { 'is-grouped': isEnabled(props, propsName) });
+
+export const stateClassFor = (state: ElementState | unknown): ClassNameProp => ({ [`is-${state}`]: isState(state) });
