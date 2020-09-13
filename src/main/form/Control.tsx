@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {checkEnabledProperties, isEnabled} from "../helpers/util";
+import {checkEnabledProperties} from "../helpers/util";
 
 type ControlProps = React.ComponentPropsWithoutRef<'div'> & {
   hasIconsLeft? :boolean;
@@ -12,7 +12,7 @@ type ControlProps = React.ComponentPropsWithoutRef<'div'> & {
 
 const Control: React.FC<ControlProps> = (originalProps) => {
   const { className, hasIconsLeft, hasIconsRight, expanded, loading, ...props } = originalProps;
-  const classes = classNames(className, 'control', isEnabled(originalProps, 'expanded'), isEnabled(originalProps, 'loading'), checkEnabledProperties(originalProps, ['hasIconsLeft', 'hasIconsRight'], {prefix: ''}));
+  const classes = classNames(className, 'control', checkEnabledProperties(originalProps, ['expanded', 'loading']), checkEnabledProperties(originalProps, ['hasIconsLeft', 'hasIconsRight'], {prefix: ''}));
   return <div className={classes} {...props} />;
 };
 

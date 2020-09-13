@@ -35,10 +35,11 @@ import SelectWrapper from "./main/form/SelectWrapper";
 import Textarea from "./main/form/TextArea";
 import SimpleCheckbox from "./main/form/SimpleCheckbox";
 import SimpleRadio from "./main/form/SimpleRadioButton";
+import DisabledFieldset from "./main/form/DisableFieldSet";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,
   ListItemProps, List, Column, Columns, OrderedList, UnorderedList, DescriptionList,
   Field, Control, FieldBody, FieldLabel, Input, Help, SelectWrapper, Textarea, SimpleCheckbox,
-  SimpleRadio }
+  SimpleRadio, DisabledFieldset }
