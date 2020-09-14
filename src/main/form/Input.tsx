@@ -12,13 +12,14 @@ type InputProps = {
   state?: ElementState;
   expanded?: boolean;
   rounded?: boolean;
-  htmlSize?: any;
+  static?: boolean;
+  htmlSize?: number | string;
 } & Omit<RegularInput, 'size'>
 
 const Input: React.FC<InputProps> = (originalProps) => {
-  const { className, color, size, state, expanded, rounded,...props } = originalProps;
-  const classes = classNames(className, 'input', colorClassFor(color), checkEnabledProperties(originalProps, ['expanded', 'rounded']), sizeClassFor(size), stateClassFor(state));
-  return <input className={classes} {...props} />;
+  const { className, color, size, state, expanded, rounded, static: isStatic, htmlSize, ...props } = originalProps;
+  const classes = classNames(className, 'input', colorClassFor(color), checkEnabledProperties(originalProps, ['expanded', 'rounded', 'static']), sizeClassFor(size), stateClassFor(state));
+  return <input className={classes} {...props} { ...!!htmlSize ? { size: Number(htmlSize) } : null }  />;
 };
 
 Input.displayName = 'Input';
@@ -29,7 +30,8 @@ Input.propTypes = {
   size: PropTypes.oneOf(SIZES),
   state: PropTypes.oneOf(ELEMENT_STATES),
   expanded: PropTypes.bool,
-  rounded: PropTypes.bool
+  rounded: PropTypes.bool,
+  static: PropTypes.bool
 };
 
 export default Input;

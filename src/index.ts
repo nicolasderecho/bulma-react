@@ -36,10 +36,20 @@ import Textarea from "./main/form/TextArea";
 import SimpleCheckbox from "./main/form/SimpleCheckbox";
 import SimpleRadio from "./main/form/SimpleRadioButton";
 import DisabledFieldset from "./main/form/DisableFieldSet";
+import Container from "./main/layout/Container";
+import LevelItem from "./main/layout/LevelItem";
+import LevelLeft from "./main/layout/LevelLeft";
+import LevelRight from "./main/layout/LevelRight";
+import Level from "./main/layout/Level";
+import MediaContent from "./main/layout/MediaContent";
+import MediaRight from "./main/layout/MediaRight";
+import MediaLeft from "./main/layout/MediaLeft";
+import Media from "./main/layout/Media";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,
   ListItemProps, List, Column, Columns, OrderedList, UnorderedList, DescriptionList,
   Field, Control, FieldBody, FieldLabel, Input, Help, SelectWrapper, Textarea, SimpleCheckbox,
-  SimpleRadio, DisabledFieldset }
+  SimpleRadio, DisabledFieldset, Container, LevelItem, LevelLeft, LevelRight, Level,
+  MediaContent, MediaRight, MediaLeft, Media }
