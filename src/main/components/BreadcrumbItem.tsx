@@ -9,7 +9,7 @@ type BreadcrumbItemProps = React.ComponentPropsWithoutRef<'li'> & {
 
 const BreadcrumbItem: React.FC<BreadcrumbItemProps> = (originalProps) => {
   const { className, active, ...props } = originalProps;
-  const classes = classNames(className, checkEnabledProperties(props, ['active']));
+  const classes = classNames(className, checkEnabledProperties(originalProps, ['active']));
   return <li className={classes} {...props} />;
 };
 

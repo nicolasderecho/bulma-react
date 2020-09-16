@@ -53,7 +53,7 @@ import HeroFoot from "./main/layout/HeroFoot";
 import Tile from "./main/layout/Tile";
 
 //Components
-export { Breadcrumb } from "./main/components/Breadrcumb";
+export { Breadcrumb } from "./main/components/Breadcrumb";
 export { BreadcrumbItem } from "./main/components/BreadcrumbItem";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,

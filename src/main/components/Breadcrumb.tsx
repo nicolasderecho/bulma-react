@@ -6,7 +6,7 @@ import {Alignment, ALIGNMENTS, Separator, SEPARATORS, Size, SIZES} from "../help
 import {BreadcrumbItemProps, BreadcrumbItem} from "./BreadcrumbItem";
 
 type BreadrcumbProps = React.ComponentPropsWithoutRef<'nav'> & {
-  ulClassName: string | object | undefined;
+  ulClassName?: string | object | undefined;
   alignment?: Alignment;
   size?: Size;
   separator?: Separator;
