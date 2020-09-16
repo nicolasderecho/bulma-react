@@ -16,7 +16,7 @@ export type SizePrefix = 'is' | 'are';
 export type HeroSize = Size | 'fullheight';
 export const HERO_SIZES: HeroSize[] = [...SIZES, 'fullheight'];
 
-export const SIZE_NUMBERS = ['1','2','3','4','5','6'] as const;
+export const SIZE_NUMBERS = ['1', 1, '2', 2, '3', 3, '4', 4, '5', 5, '6', 6] as const;
 export type SizeNumber = ElementType<typeof SIZE_NUMBERS>;
 
 export const BUTTON_POSITIONS = ['centered', 'right'] as const;

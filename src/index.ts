@@ -45,6 +45,12 @@ import MediaContent from "./main/layout/MediaContent";
 import MediaRight from "./main/layout/MediaRight";
 import MediaLeft from "./main/layout/MediaLeft";
 import Media from "./main/layout/Media";
+import Footer from "./main/layout/Footer";
+import Section from "./main/layout/Section";
+import HeroHead from "./main/layout/HeroHead";
+import HeroBody from "./main/layout/HeroBody";
+import HeroFoot from "./main/layout/HeroFoot";
+import Tile from "./main/layout/Tile";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
@@ -52,4 +58,4 @@ export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title
   ListItemProps, List, Column, Columns, OrderedList, UnorderedList, DescriptionList,
   Field, Control, FieldBody, FieldLabel, Input, Help, SelectWrapper, Textarea, SimpleCheckbox,
   SimpleRadio, DisabledFieldset, Container, LevelItem, LevelLeft, LevelRight, Level,
-  MediaContent, MediaRight, MediaLeft, Media }
+  MediaContent, MediaRight, MediaLeft, Media, Footer, Section, HeroHead, HeroBody, HeroFoot, Tile }

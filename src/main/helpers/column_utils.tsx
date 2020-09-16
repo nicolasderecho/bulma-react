@@ -23,10 +23,10 @@ export const TWO_FIFTHS = 'two-fifths' as const;
 export const ONE_FIFTH = 'one-fifth' as const;
 
 export const COLUMN_SIZE_NUMBERS = ['1', 1, '2', 2, '3', 3, '4', 4, '5', 5, '6', 6, '7', 7, '8', 8, '9', 9, '10', 10, '11', 11, '12', 12] as const;
+export type ColumnSizeNumber = typeof COLUMN_SIZE_NUMBERS[number];
 export const ORIGINAL_COLUMN_SIZES = [ ...COLUMN_SIZE_NUMBERS, ...[THREE_QUARTERS, TWO_THIRDS, HALF, ONE_THIRD, ONE_QUARTER, FULL, FOURT_FIFTHS, THREE_FIFTHS, TWO_FIFTHS, ONE_FIFTH] ] as const;
 export const COLUMN_SIZES_ALIASES = [ONE_THIRD_ALIAS, TWO_THIRDS_ALIAS, ONE_QUARTER_ALIAS, HALF_ALIAS, THREE_QUARTERS_ALIAS, ONE_FIFTH_ALIAS, TWO_FIFTHS_ALIAS, THREE_FIFTHS_ALIAS, FOURT_FIFTHS_ALIAS] as const;
 export const COLUMN_SIZES = [...ORIGINAL_COLUMN_SIZES, ...COLUMN_SIZES_ALIASES] as const;
-//export type ColumnSize = ElementType<typeof COLUMN_SIZES>;
 export type ColumnSize = typeof COLUMN_SIZES[number];
 
 export const MOBILE     = 'mobile' as const;
@@ -78,3 +78,6 @@ export const variableGapClassFor = <T extends object>(gap: GapSize | unknown, pr
   return { 'is-variable': isValidGap(gap) || deviceGapValidations };
 };
 export const deviceActiveClassFor = (fromDevice: Device | unknown): ClassNameProp => ({ [`is-${fromDevice}`]: isDevice(fromDevice) });
+
+export const isColumnSizeNumber = (value: any): value is ColumnSizeNumber => COLUMN_SIZE_NUMBERS.includes(value);
+export const horizontalClassFor = (sizeNumber: ColumnSizeNumber | unknown): ClassNameProp => ({ [`is-${sizeNumber}`]: isColumnSizeNumber(sizeNumber) });
