@@ -52,6 +52,10 @@ import HeroBody from "./main/layout/HeroBody";
 import HeroFoot from "./main/layout/HeroFoot";
 import Tile from "./main/layout/Tile";
 
+//Components
+export { Breadcrumb } from "./main/components/Breadrcumb";
+export { BreadcrumbItem } from "./main/components/BreadcrumbItem";
+
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,

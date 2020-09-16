@@ -19,7 +19,8 @@ import {
   ALIGNMENTS,
   HeroSize,
   HERO_SIZES,
-  Hierarchy, HIERARCHIES
+  Hierarchy, HIERARCHIES,
+  Separator, SEPARATORS
 } from "./constants";
 import {dashCase} from "./generic_helpers";
 import React from "react";
@@ -38,6 +39,7 @@ export const isDefined = <X extends {}, Y extends PropertyKey>(obj: X, prop: Y):
 export const isAlignment = (value: any): value is Alignment => ALIGNMENTS.includes(value);
 export const isState = (value: any): value is ElementState => ELEMENT_STATES.includes(value);
 export const isHierarchy = (value: any): value is Hierarchy => HIERARCHIES.includes(value);
+export const isSeparator = (value: any): value is Separator => SEPARATORS.includes(value);
 
 export const buildSingularClassNameProp = <T extends object>(props: T, name: string): ClassNameProp => ({ [`is-${name}`]: isEnabled(props, name) });
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
@@ -49,6 +51,7 @@ export const elementStateClassFor = (state: ElementState | unknown) => ({ [`is-$
 export const textClassFor = (textClassName: Color | unknown) => ({ [`has-text-${textClassName}`]: isColor(textClassName) });
 export const iconPositionClassFor = (position: any) => ({ [`is-${position}`]: isIconPosition(position) });
 export const htmlElementFor = (tag: unknown, defaultIfNil: unknown): typeof React.Component => HTML_CONVERSIONS[tag as string] || tag || defaultIfNil || 'div';
+export const separatorClassFor = (separator: Separator | unknown): ClassNameProp => ({ [`has-${separator}-separator`]: isSeparator(separator) });
 
 export const isRenderedAs = <T extends object>(htmlElement: HtmlElement, props: T, propName: string): boolean => (props['as'] === htmlElement) && !!props[propName];
 

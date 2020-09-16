@@ -6,8 +6,14 @@
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "repository": "https://github.com/nicolasderecho/bulma-react",
-  "files": [ "types",
-    "src/main", "src/index.ts", "src/index.scss", "build", "tsconfig.json"],
+  "files": [
+    "types",
+    "src/main",
+    "src/index.ts",
+    "src/index.scss",
+    "build",
+    "tsconfig.json"
+  ],
   "scripts": {
     "build": "rollup -c",
     "lint": "standard",
