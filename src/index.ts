@@ -55,6 +55,14 @@ import Tile from "./main/layout/Tile";
 //Components
 export { Breadcrumb } from "./main/components/Breadcrumb";
 export { BreadcrumbItem } from "./main/components/BreadcrumbItem";
+export { CardImage } from "./main/components/CardImage";
+export { CardContent } from "./main/components/CardContent";
+export { CardFooterItem } from "./main/components/CardFooterItem";
+export { CardFooter } from "./main/components/CardFooter";
+export { CardHeaderTitle } from "./main/components/CardHeaderTitle";
+export { CardHeaderIcon } from "./main/components/CardHeaderIcon";
+export { CardHeader } from "./main/components/CardHeader";
+export { Card } from "./main/components/Card";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
