@@ -1,5 +1,7 @@
 import * as React from 'react'
-import {Card, Content, Image, Media, Title, Subtitle, Column, Columns} from "../../index";
+import {Card, Content, Image, Media, Title, Subtitle, Column, Columns, IconWrapper} from "../../index";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 export default { title: 'Components/Card' }
 
@@ -29,6 +31,38 @@ export const basic = () => {
               <span>11:09 PM - 1 Jan 2016</span>
             </Content>
           </Card.Content>
+        </Card>
+      </Column>
+    </Columns>
+  </React.Fragment>
+}
+
+export const card = () => {
+
+  return <React.Fragment>
+    <Columns>
+      <Column columnSize={'one-third'} offset={'one-third'}>
+        <Card>
+          <Card.Header>
+            <Card.Header.Title centered>
+              Component
+            </Card.Header.Title>
+            <Card.Header.Icon>
+              <IconWrapper><FontAwesomeIcon icon={faAngleDown} /></IconWrapper>
+            </Card.Header.Icon>
+          </Card.Header>
+          <Card.Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+            <a href="#">#css</a> <a href="#">#responsive</a>
+            <br />
+            <span>11:09 PM - 1 Jan 2016</span>
+          </Card.Content>
+          <Card.Footer>
+            <Card.Footer.Item>Save</Card.Footer.Item>
+            <Card.Footer.Item>Edit</Card.Footer.Item>
+            <Card.Footer.Item>Delete</Card.Footer.Item>
+          </Card.Footer>
         </Card>
       </Column>
     </Columns>

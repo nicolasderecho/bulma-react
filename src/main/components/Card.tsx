@@ -3,20 +3,18 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CardImage from "./CardImage";
 import CardContent from "./CardContent";
-import CardFooter from "./CardFooter";
-import CardHeader from "./CardHeader";
+import CardFooter, {CardFooterComponent} from "./CardFooter";
+import CardHeader, {CardHeaderComponent} from "./CardHeader";
 import {CardImageProps} from "./CardImage";
 import {CardContentProps} from "./CardContent";
-import {CardFooterProps} from "./CardFooter";
-import {CardHeaderProps} from "./CardHeader";
 
 type CardProps = React.ComponentPropsWithoutRef<'div'>;
 
 type CardComponent = React.FC<CardProps> & {
   Image: React.FC<CardImageProps>;
   Content: React.FC<CardContentProps>;
-  Footer: React.FC<CardFooterProps>;
-  Header: React.FC<CardHeaderProps>;
+  Footer: CardFooterComponent;
+  Header: CardHeaderComponent;
 }
 
 const Card: CardComponent = ({ className, ...props }) => {

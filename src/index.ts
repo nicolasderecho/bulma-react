@@ -63,6 +63,20 @@ export { CardHeaderTitle } from "./main/components/CardHeaderTitle";
 export { CardHeaderIcon } from "./main/components/CardHeaderIcon";
 export { CardHeader } from "./main/components/CardHeader";
 export { Card } from "./main/components/Card";
+export { DropdownTrigger } from "./main/components/DropdownTrigger";
+export { DropdownMenu } from "./main/components/DropdownMenu";
+export { DropdownContent } from "./main/components/DropdownContent";
+export { DropdownDivider } from "./main/components/DropdownDivider";
+export { DropdownItem } from "./main/components/DropdownItem";
+export { Dropdown } from "./main/components/Dropdown";
+export { MenuLabel } from "./main/components/MenuLabel";
+export { MenuList } from "./main/components/MenuList";
+export { Menu } from "./main/components/Menu";
+export { MessageBody } from "./main/components/MessageBody";
+export { MessageHeader } from "./main/components/MessageHeader";
+export { Message } from "./main/components/Message";
+export { TabsItem } from "./main/components/TabsItem";
+export { Tabs } from "./main/components/Tabs";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
