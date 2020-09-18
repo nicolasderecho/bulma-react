@@ -93,6 +93,12 @@ export { PaginationNext } from "./main/components/PaginationNext";
 export { PaginationList } from "./main/components/PaginationList";
 export { PaginationLink } from "./main/components/PaginationLink";
 export { Pagination } from "./main/components/Pagination";
+export { PanelHeading } from "./main/components/PanelHeading";
+export { PanelBlock } from "./main/components/PanelBlock";
+export { PanelIcon } from "./main/components/PanelIcon";
+export { PanelTabsItem } from "./main/components/PanelTabsItem";
+export { PanelTabs } from "./main/components/PanelTabs";
+export { Panel } from "./main/components/Panel";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
