@@ -77,6 +77,16 @@ export { MessageHeader } from "./main/components/MessageHeader";
 export { Message } from "./main/components/Message";
 export { TabsItem } from "./main/components/TabsItem";
 export { Tabs } from "./main/components/Tabs";
+export { NavbarBrand } from "./main/components/NavbarBrand";
+export { NavbarBurger } from "./main/components/NavbarBurger";
+export { NavbarMenu } from "./main/components/NavbarMenu";
+export { NavbarStart } from "./main/components/NavbarStart";
+export { NavbarEnd } from "./main/components/NavbarEnd";
+export { NavbarItem } from "./main/components/NavbarItem";
+export { NavbarLink } from "./main/components/NavbarLink";
+export { NavbarDropdown } from "./main/components/NavbarDropdown";
+export { NavbarDivider } from "./main/components/NavbarDivider";
+export { Navbar } from "./main/components/Navbar";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
