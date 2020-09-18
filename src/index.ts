@@ -87,6 +87,12 @@ export { NavbarLink } from "./main/components/NavbarLink";
 export { NavbarDropdown } from "./main/components/NavbarDropdown";
 export { NavbarDivider } from "./main/components/NavbarDivider";
 export { Navbar } from "./main/components/Navbar";
+export { PaginationEllipsis } from "./main/components/PaginationEllipsis";
+export { PaginationPrevious } from "./main/components/PaginationPrevious";
+export { PaginationNext } from "./main/components/PaginationNext";
+export { PaginationList } from "./main/components/PaginationList";
+export { PaginationLink } from "./main/components/PaginationLink";
+export { Pagination } from "./main/components/Pagination";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
