@@ -19,7 +19,7 @@ import Tags from "./main/elements/Tags";
 import HeadingElement from "./main/elements/HeadingElement";
 import Title from "./main/elements/Title";
 import Subtitle from "./main/elements/Subtitle";
-import ListItemProps from "./main/elements/ListItem";
+import ListItem from "./main/elements/ListItem";
 import List from "./main/elements/List";
 import Column from "./main/elements/Column";
 import Columns from "./main/elements/Columns";
@@ -103,7 +103,7 @@ export { Panel } from "./main/components/Panel";
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
   TableHead, ProgressBar, Notification, Content, Delete, IconWrapper, Subtitle,
-  ListItemProps, List, Column, Columns, OrderedList, UnorderedList, DescriptionList,
+  ListItem, List, Column, Columns, OrderedList, UnorderedList, DescriptionList,
   Field, Control, FieldBody, FieldLabel, Input, Help, SelectWrapper, Textarea, SimpleCheckbox,
   SimpleRadio, DisabledFieldset, Container, LevelItem, LevelLeft, LevelRight, Level,
   MediaContent, MediaRight, MediaLeft, Media, Footer, Section, HeroHead, HeroBody, HeroFoot, Tile }
