@@ -5,7 +5,7 @@ import {checkEnabledProperties, htmlElementFor} from "../helpers/util";
 import {HtmlElement} from "../helpers/constants";
 
 type DropdownItemProps = React.ComponentPropsWithoutRef<'a' | 'div'> & {
-  active?: HtmlElement;
+  active?: boolean;
   as?: HtmlElement;
 }
 
