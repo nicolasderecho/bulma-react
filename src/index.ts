@@ -52,6 +52,15 @@ import HeroBody from "./main/layout/HeroBody";
 import HeroFoot from "./main/layout/HeroFoot";
 import Tile from "./main/layout/Tile";
 import Panel from "./main/components/Panel";
+import Modal from "./main/components/Modal";
+import ModalBackground from "./main/components/ModalBackground";
+import ModalContent from "./main/components/ModalContent";
+import ModalClose from "./main/components/ModalClose";
+import ModalCard from "./main/components/ModalCard";
+import ModalCardBody from "./main/components/ModalCardBody";
+import ModalCardTitle from "./main/components/ModalCardTitle";
+import ModalCardFoot from "./main/components/ModalCardFoot";
+import ModalCardHead from "./main/components/ModalCardHead";
 
 //Components
 export { Breadcrumb } from "./main/components/Breadcrumb";
@@ -107,3 +116,15 @@ export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title
   Field, Control, FieldBody, FieldLabel, Input, Help, SelectWrapper, Textarea, SimpleCheckbox,
   SimpleRadio, DisabledFieldset, Container, LevelItem, LevelLeft, LevelRight, Level,
   MediaContent, MediaRight, MediaLeft, Media, Footer, Section, HeroHead, HeroBody, HeroFoot, Tile, Panel }
+
+export {
+  Modal,
+  ModalBackground,
+  ModalClose,
+  ModalContent,
+  ModalCard,
+  ModalCardTitle,
+  ModalCardHead,
+  ModalCardBody,
+  ModalCardFoot
+}
