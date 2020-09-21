@@ -9,7 +9,7 @@ type TabsItemProps = React.ComponentPropsWithoutRef<'li'> & {
 
 const TabsItem: React.FC<TabsItemProps> = (originalProps) => {
   const { className, children, active, ...props } = originalProps;
-  const classes = classNames(className, checkEnabledProperties(props, ['active']));
+  const classes = classNames(className, checkEnabledProperties(originalProps, ['active']));
   // eslint-disable-next-line
   return <li className={classes} {...props} ><a>{children}</a></li>;
 };

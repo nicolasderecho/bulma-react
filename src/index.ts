@@ -51,6 +51,7 @@ import HeroHead from "./main/layout/HeroHead";
 import HeroBody from "./main/layout/HeroBody";
 import HeroFoot from "./main/layout/HeroFoot";
 import Tile from "./main/layout/Tile";
+import Panel from "./main/components/Panel";
 
 //Components
 export { Breadcrumb } from "./main/components/Breadcrumb";
@@ -98,7 +99,6 @@ export { PanelBlock } from "./main/components/PanelBlock";
 export { PanelIcon } from "./main/components/PanelIcon";
 export { PanelTabsItem } from "./main/components/PanelTabsItem";
 export { PanelTabs } from "./main/components/PanelTabs";
-export { Panel } from "./main/components/Panel";
 
 export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title,
   TableCell, TableCellHeader, TableBody, TableFooter, Image, HeadingElement,
@@ -106,4 +106,4 @@ export { Button, Buttons, Box, Table, TableContainer, TableRow, Tag, Tags, Title
   ListItem, List, Column, Columns, OrderedList, UnorderedList, DescriptionList,
   Field, Control, FieldBody, FieldLabel, Input, Help, SelectWrapper, Textarea, SimpleCheckbox,
   SimpleRadio, DisabledFieldset, Container, LevelItem, LevelLeft, LevelRight, Level,
-  MediaContent, MediaRight, MediaLeft, Media, Footer, Section, HeroHead, HeroBody, HeroFoot, Tile }
+  MediaContent, MediaRight, MediaLeft, Media, Footer, Section, HeroHead, HeroBody, HeroFoot, Tile, Panel }
