@@ -4,19 +4,23 @@ import classNames from 'classnames';
 import {PanelHeading, PanelHeadingProps} from "./PanelHeading";
 import {PanelBlock, PanelBlockProps} from "./PanelBlock";
 import {PanelIcon, PanelIconProps} from "./PanelIcon";
-import {PanelTabs, PanelTabsProps} from "./PanelTabs";
+import {PanelTabs, PanelTabsComponent } from "./PanelTabs";
+import {Color, COLORS} from "../helpers/constants";
+import {colorClassFor} from "../helpers/util";
 
-type PanelProps = React.ComponentPropsWithoutRef<'nav'>;
+type PanelProps = React.ComponentPropsWithoutRef<'nav'> & {
+  color?: Color;
+};
 
 type PanelComponent = React.FC<PanelProps> & {
   Heading: React.FC<PanelHeadingProps>;
   Block: React.FC<PanelBlockProps>;
   Icon: React.FC<PanelIconProps>;
-  Tabs: React.FC<PanelTabsProps>;
+  Tabs: PanelTabsComponent;
 };
 
-const Panel: PanelComponent = ({ className, ...props }) => {
-  const classes = classNames(className, 'panel');
+const Panel: PanelComponent = ({ className, color, ...props }) => {
+  const classes = classNames(className, 'panel', colorClassFor(color));
   return <nav className={classes} {...props} />;
 };
 
@@ -28,7 +32,8 @@ Panel.Icon    = PanelIcon;
 Panel.Tabs    = PanelTabs;
 
 Panel.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  color: PropTypes.oneOf(COLORS)
 };
 
 export default Panel;
