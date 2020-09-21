@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {htmlElementFor} from "../helpers/util";
+import {htmlElementFor, isEnabled} from "../helpers/util";
 import {HtmlElement} from "../helpers/constants";
 import {checkEnabledProperties} from "../helpers/util";
 
 type NavbarItemProps = React.ComponentPropsWithoutRef<'a' | 'div'> & {
   as?: HtmlElement;
-  component: React.FC<React.ComponentProps<any>>;
+  component?: React.FC<React.ComponentProps<any>>;
   expanded?: boolean;
   tab?: boolean;
   active?: boolean;
@@ -18,8 +18,9 @@ type NavbarItemProps = React.ComponentPropsWithoutRef<'a' | 'div'> & {
 
 const NavbarItem: React.FC<NavbarItemProps> = (originalProps) => {
   const { className, as, component, expanded, tab, active, hoverable, dropdown, dropdownUp, ...props } = originalProps;
-  const Element = component || htmlElementFor(as, 'a');
-  const classes = classNames(className, 'navbar-item', checkEnabledProperties(props, ['dropdown', 'dropdownUp'], {prefix: 'has'}), checkEnabledProperties(props, ['expanded', 'tab', 'active', 'hoverable']));
+  const defaultElement =  isEnabled(originalProps, 'dropdown') ? 'div' : 'a';
+  const Element = component || htmlElementFor(as, defaultElement);
+  const classes = classNames(className, 'navbar-item', checkEnabledProperties(originalProps, ['dropdown', 'dropdownUp'], {prefix: 'has'}), checkEnabledProperties(originalProps, ['expanded', 'tab', 'active', 'hoverable']));
   return <Element className={classes} {...props} />;
 };
 
