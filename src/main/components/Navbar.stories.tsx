@@ -4,6 +4,8 @@ import {useCallback, useState} from "react";
 
 export default { title: 'Components/Navbar' }
 
+const Link: React.FC<React.ComponentPropsWithoutRef<'div'>> = (props) => <div {...props} />;
+
 export const basic = () => {
   const [isActive, updateIsActive] = useState(false);
   const toggleIsActive = useCallback(() => updateIsActive(prevState => !prevState), []);
@@ -20,7 +22,7 @@ export const basic = () => {
           </Navbar.Brand>
           <Navbar.Menu active={isActive}>
             <Navbar.Start>
-              <Navbar.Item>Home</Navbar.Item>
+              <Navbar.Item component={Link} >Home</Navbar.Item>
               <Navbar.Item>Documentation</Navbar.Item>
               <Navbar.Item dropdown hoverable>
                 <Navbar.Link>More</Navbar.Link>
