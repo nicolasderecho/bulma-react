@@ -5,20 +5,25 @@ import {checkEnabledProperties} from "../helpers/util";
 
 type TabsItemProps = React.ComponentPropsWithoutRef<'li'> & {
   active?: boolean;
+  includeLink?: boolean;
 }
 
 const TabsItem: React.FC<TabsItemProps> = (originalProps) => {
-  const { className, children, active, ...props } = originalProps;
+  const { className, children, active, includeLink = true, ...props } = originalProps;
   const classes = classNames(className, checkEnabledProperties(originalProps, ['active']));
   // eslint-disable-next-line
-  return <li className={classes} {...props} ><a>{children}</a></li>;
+  const element = includeLink
+    ? <li className={classes} {...props} > <a>{children}</a> </li>
+    : <li className={classes} {...props} children={children} />
+  return element;
 };
 
 TabsItem.displayName = 'TabsItem';
 
 TabsItem.propTypes = {
   className: PropTypes.string,
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  includeLink: PropTypes.bool
 };
 
 export default TabsItem;

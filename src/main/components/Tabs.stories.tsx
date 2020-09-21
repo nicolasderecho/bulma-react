@@ -120,3 +120,31 @@ export const icons = () => {
     </Tabs>
   </React.Fragment>
 }
+
+export const withCustomLinkComponent = () => {
+  const LinkComponent = ({to, ...props}: any) => <a className={'custom-link'} {...props} /> //This could also be the react router Link component
+  return <React.Fragment>
+    <Tabs>
+      <Tabs.Item active includeLink={false} >
+        <LinkComponent to={'/some-path'}>
+          Pictures
+        </LinkComponent>
+      </Tabs.Item>
+      <Tabs.Item includeLink={false} >
+        <LinkComponent to={'/some-path'}>
+          Music
+        </LinkComponent>
+      </Tabs.Item>
+      <Tabs.Item includeLink={false} >
+        <LinkComponent to={'/some-path'}>
+          Video
+        </LinkComponent>
+      </Tabs.Item>
+      <Tabs.Item includeLink={false} >
+        <LinkComponent to={'/some-path'}>
+          Documents
+        </LinkComponent>
+      </Tabs.Item>
+    </Tabs>
+  </React.Fragment>
+}
