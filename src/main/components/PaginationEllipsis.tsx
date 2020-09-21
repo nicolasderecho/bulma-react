@@ -9,7 +9,7 @@ type PaginationEllipsisProps = React.ComponentPropsWithoutRef<'li'> & {
 const PaginationEllipsis: React.FC<PaginationEllipsisProps> = ({ className, text, ...props }) => {
   const ellipsisText = text || '...';
   const classes = classNames(className, 'pagination-ellipsis');
-  return <li><span className={classes} {...props} />{ellipsisText}</li>;
+  return <li><span className={classes} {...props}>{ellipsisText}</span></li>;
 };
 
 PaginationEllipsis.displayName = 'PaginationEllipsis';
