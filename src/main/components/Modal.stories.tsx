@@ -228,7 +228,7 @@ export const modalCard = () => {
   const toggleCloseOnClickingOutside = useCallback(() => updateCloseOnClickingOutside(prevState => !prevState), []);
 
   return <React.Fragment>
-    <Button onClick={openModal}>Open modal</Button>
+    <Button onClick={openModal}>Open Card modal</Button>
     <Field>
       <Control>
         <SimpleCheckbox checked={closeOnEscape} onChange={toggleCloseOnEscape}> Close on Escape</SimpleCheckbox>
@@ -272,5 +272,43 @@ export const modalCard = () => {
         </Modal.Card.Foot>
       </Modal.Card>
     </Modal>
+  </React.Fragment>
+}
+
+export const clipped = () => {
+  const [isActive, updateIsActive] = useState(false);
+  const openModal = useCallback(() => updateIsActive(true), [] );
+  const closeModal = useCallback(() => updateIsActive(false), [] );
+
+  return <React.Fragment>
+    <Modal active={isActive} clipped closeModal={closeModal}>
+      <Modal.Content>
+        <Box>
+          <Media>
+            <Media.Left>
+              <Image is={'64x64'} src={"https://bulma.io/images/placeholders/128x128.png"} />
+            </Media.Left>
+            <Media.Content>
+              <Content>
+                <p>
+                  <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                  <br />
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                </p>
+              </Content>
+              <Level mobile>
+                <Level.Left>
+                  <Level.Item><IconWrapper><FontAwesomeIcon icon={faReply} /></IconWrapper></Level.Item>
+                  <Level.Item><IconWrapper><FontAwesomeIcon icon={faRetweet} /></IconWrapper></Level.Item>
+                  <Level.Item><IconWrapper><FontAwesomeIcon icon={faHeart} /></IconWrapper></Level.Item>
+                </Level.Left>
+              </Level>
+            </Media.Content>
+          </Media>
+        </Box>
+      </Modal.Content>
+      <Modal.Close onClick={closeModal} />
+    </Modal>
+    <Button onClick={openModal}>Open Clipped modal</Button>
   </React.Fragment>
 }
