@@ -5,8 +5,11 @@ import {ModalCardHead, ModalCardHeadProps} from "./ModalCardHead";
 import {ModalCardTitle, ModalCardTitleProps} from "./ModalCardTitle";
 import {ModalCardBody, ModalCardBodyProps} from "./ModalCardBody";
 import {ModalCardFoot, ModalCardFootProps} from "./ModalCardFoot";
+import {OutsideAlerter} from "../helpers/react";
 
-type ModalCardProps = React.ComponentPropsWithoutRef<'div'>;
+type ModalCardProps = React.ComponentPropsWithoutRef<'div'> & {
+  closeOnClickOutside?: boolean;
+};
 
 type ModalCardComponent = React.FC<ModalCardProps> & {
   Head: React.FC<ModalCardHeadProps>;
@@ -15,9 +18,11 @@ type ModalCardComponent = React.FC<ModalCardProps> & {
   Foot: React.FC<ModalCardFootProps>;
 }
 
-const ModalCard: ModalCardComponent = ({ className, ...props }) => {
+const ModalCard: ModalCardComponent = ({ className, closeOnClickOutside, ...props }) => {
   const classes = classNames(className, 'modal-card');
-  return <div className={classes} {...props} />;
+  return <OutsideAlerter closeOnClickOutside={closeOnClickOutside}>
+    <div className={classes} {...props} />;
+  </OutsideAlerter>
 };
 
 ModalCard.displayName = 'ModalCard';
@@ -28,7 +33,8 @@ ModalCard.Body  = ModalCardBody;
 ModalCard.Foot  = ModalCardFoot;
 
 ModalCard.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  closeOnClickOutside: PropTypes.bool
 };
 
 export default ModalCard;
