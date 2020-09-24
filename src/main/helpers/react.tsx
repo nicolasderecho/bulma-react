@@ -55,3 +55,26 @@ export const OutsideAlerter: React.FC<OutsideAlerterProps> = (originalProps) => 
 }
 
 OutsideAlerter.displayName = 'OutsideAlerter';
+
+const HtmlNotFoundError = (): never => { throw new Error('Couldn\'t find html dom element'); }
+
+const { addClipped, removeClipped } = function(): { addClipped: Function, removeClipped: Function } {
+  let count = 0;
+  const addClipped = (): void => {
+    count +=1;
+    if(count > 0) {
+      const htmlSelector: HTMLElement | never = document.querySelector('html') || HtmlNotFoundError();
+      htmlSelector.classList.add('is-clipped');
+    }
+  };
+  const removeClipped = (): void => {
+    count -=1;
+    if(count <= 0) {
+      const htmlSelector: HTMLElement | never = document.querySelector('html') || HtmlNotFoundError();
+      htmlSelector.classList.remove('is-clipped');
+    }
+  };
+  return { addClipped, removeClipped }
+}();
+
+export { addClipped, removeClipped }

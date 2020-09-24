@@ -312,3 +312,63 @@ export const clipped = () => {
     <Button onClick={openModal}>Open Clipped modal</Button>
   </React.Fragment>
 }
+
+export const InnerClippedModals = () => {
+  const [isActive, updateIsActive] = useState(false);
+  const openModal = useCallback(() => updateIsActive(true), [] );
+  const closeModal = useCallback(() => updateIsActive(false), [] );
+
+  const [isInnerActive, updateInnerIsActive] = useState(false);
+  const openInnerModal = useCallback(() => updateInnerIsActive(true), [] );
+  const closeInnerModal = useCallback(() => updateInnerIsActive(false), [] );
+
+  return <React.Fragment>
+    <Modal active={isActive} clipped closeModal={closeModal}>
+      <Modal.Content>
+        <Box>
+          <Content>
+            <p>This modal contains another modal</p>
+            <Button onClick={openInnerModal}>Open Inner Modal</Button>
+            <Modal active={isInnerActive} closeModal={closeInnerModal} >
+              <Modal.Card closeOnClickOutside>
+                <Modal.Card.Head>
+                  <Modal.Card.Title>Modal Title</Modal.Card.Title>
+                  <Delete onClick={closeInnerModal} />
+                </Modal.Card.Head>
+                <Modal.Card.Body>
+                  <Media>
+                    <Media.Left>
+                      <Image is={'64x64'} src={"https://bulma.io/images/placeholders/128x128.png"} />
+                    </Media.Left>
+                    <Media.Content>
+                      <Content>
+                        <p>
+                          <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                          <br />
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                        </p>
+                      </Content>
+                      <Level mobile>
+                        <Level.Left>
+                          <Level.Item><IconWrapper><FontAwesomeIcon icon={faReply} /></IconWrapper></Level.Item>
+                          <Level.Item><IconWrapper><FontAwesomeIcon icon={faRetweet} /></IconWrapper></Level.Item>
+                          <Level.Item><IconWrapper><FontAwesomeIcon icon={faHeart} /></IconWrapper></Level.Item>
+                        </Level.Left>
+                      </Level>
+                    </Media.Content>
+                  </Media>
+                </Modal.Card.Body>
+                <Modal.Card.Foot>
+                  <Button color={'primary'}>Success</Button>
+                  <Button color={'link'} onClick={closeModal}>Cancel</Button>
+                </Modal.Card.Foot>
+              </Modal.Card>
+            </Modal>
+          </Content>
+        </Box>
+      </Modal.Content>
+      <Modal.Close onClick={closeModal} />
+    </Modal>
+    <Button onClick={openModal}>Open Clipped modal</Button>
+  </React.Fragment>
+}

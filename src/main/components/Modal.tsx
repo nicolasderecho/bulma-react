@@ -6,7 +6,7 @@ import { ModalBackground, ModalBackgroundProps } from "./ModalBackground";
 import {ModalContent, ModalContentProps} from "./ModalContent";
 import { ModalClose,ModalCloseProps } from "./ModalClose";
 import {ModalCard, ModalCardComponent} from "./ModalCard";
-import {OutsideClickProvider, usePrevious} from "../helpers/react";
+import {addClipped, OutsideClickProvider, removeClipped, usePrevious} from "../helpers/react";
 
 const isEscape = (event: KeyboardEvent): boolean => {
   const key = event.key || event.keyCode;
@@ -32,8 +32,6 @@ type ModalComponent = React.FC<ModalProps> & {
   Card: ModalCardComponent;
 }
 
-const HtmlNotFoundError = (): never => { throw new Error('Couldn\'t find html dom element'); }
-
 const Modal: ModalComponent = (originalProps) => {
   const { className, active, closeModal = Function.prototype, onOpen = Function.prototype, onClose = Function.prototype, onMount = Function.prototype, onUnmount = Function.prototype, closeOnEscape = false, children, background, clipped, ...props } = originalProps
   const previousActive = usePrevious(active);
@@ -45,18 +43,6 @@ const Modal: ModalComponent = (originalProps) => {
     }
   }, [closeOnEscape, active]);
   const onOutsideClick = useCallback(() => closeModal(), [closeModal]);
-  const maybeAddClippedClass = () => {
-    if(clipped) {
-      const selector: HTMLElement | never = document.querySelector('html') || HtmlNotFoundError();
-      selector.classList.add('is-clipped');
-    }
-  }
-  const maybeRemoveClippedClass = () => {
-    if(clipped) {
-      const selector: HTMLElement | never = document.querySelector('html') || HtmlNotFoundError();
-      selector.classList.remove('is-clipped');
-    }
-  }
 
   useEffect(() => {
     onMount();
@@ -72,12 +58,12 @@ const Modal: ModalComponent = (originalProps) => {
 
   if(isOpening) {
     onOpen();
-    maybeAddClippedClass();
+    if(clipped) { addClipped(); }
   }
 
   if(isClosing) {
     onClose();
-    maybeRemoveClippedClass();
+    if(clipped) { removeClipped(); }
   }
 
   const classes = classNames(className, 'modal', checkEnabledProperties(originalProps, ['active']))
