@@ -10,7 +10,6 @@
     "types",
     "src/main",
     "src/index.ts",
-    "src/index.scss",
     "build",
     "tsconfig.json"
   ],

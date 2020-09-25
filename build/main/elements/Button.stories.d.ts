@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ButtonProps } from './Button';
-import '../../index.scss';
 declare const _default: {
     title: string;
 };

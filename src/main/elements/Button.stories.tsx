@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Button, {ButtonProps} from './Button'
-import '../../index.scss';
 import {Color, Size} from "../helpers/constants";
 import ButtonGroup from "./ButtonGroup";
 import Buttons from "./Buttons";
