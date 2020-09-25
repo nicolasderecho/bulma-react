@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {checkEnabledProperties, colorClassFor, sizeClassFor} from "../helpers/util";
@@ -21,14 +21,14 @@ type CheckRadioProps = {
   id: string;
 } & Omit<RegularInput, 'size'>;
 
-const CheckRadio: React.FC<CheckRadioProps> = (originalProps) => {
+const CheckRadio: React.FC<CheckRadioProps> = forwardRef( (originalProps, ref) => {
   const { inputClass, text, id, name, type, color, size, rtl, circle, block, hasNoBorder, hasBackgroundColor, htmlSize, ...props } = originalProps;
   const classes = classNames(inputClass, 'is-checkradio', colorClassFor(color), sizeClassFor(size), checkEnabledProperties(originalProps, ['rtl', 'circle', 'block']), checkEnabledProperties(originalProps, ['hasNoBorder', 'hasBackgroundColor'], { prefix: ''} ));
   return <React.Fragment>
-    <input id={id} type={type} className={classes} name={name} {...props} { ...!!htmlSize ? { size: Number(htmlSize) } : null } />
+    <input id={id} type={type} className={classes} name={name} ref={ref} {...props} { ...!!htmlSize ? { size: Number(htmlSize) } : null } />
     <label htmlFor={id}>{text}</label>
   </React.Fragment>;
-};
+});
 
 CheckRadio.displayName = 'CheckRadio';
 

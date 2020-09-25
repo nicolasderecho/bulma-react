@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import { isEnabled } from "../helpers/util";
 import { COLORS, SIZES } from "../helpers/constants";
@@ -8,20 +8,19 @@ type CheckBoxProps = Omit<CheckRadioProps, 'type'> & {
   indeterminate?: boolean;
 };
 
-const CheckBox: React.FC<CheckBoxProps> = (originalProps) => {
-  const {indeterminate, ref, ...props} = originalProps
+const CheckBox: React.FC<CheckBoxProps> = forwardRef((originalProps) => {
+  const {indeterminate, ...props} = originalProps
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const input = inputRef.current;
-    debugger
     if(!!input) {
       input.indeterminate = isEnabled(originalProps, 'indeterminate');
     }
   })
 
   return <CheckRadio type={'checkbox'} ref={inputRef} {...props} />;
-}
+})
 
 CheckBox.displayName = 'CheckBox';
 
