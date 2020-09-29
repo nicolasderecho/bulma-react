@@ -19,6 +19,7 @@ export declare const THREE_FIFTHS: "three-fifths";
 export declare const TWO_FIFTHS: "two-fifths";
 export declare const ONE_FIFTH: "one-fifth";
 export declare const COLUMN_SIZE_NUMBERS: readonly ["1", 1, "2", 2, "3", 3, "4", 4, "5", 5, "6", 6, "7", 7, "8", 8, "9", 9, "10", 10, "11", 11, "12", 12];
+export declare type ColumnSizeNumber = typeof COLUMN_SIZE_NUMBERS[number];
 export declare const ORIGINAL_COLUMN_SIZES: readonly ["1", 1, "2", 2, "3", 3, "4", 4, "5", 5, "6", 6, "7", 7, "8", 8, "9", 9, "10", 10, "11", 11, "12", 12, "three-quarters", "two-thirds", "half", "one-third", "one-quarter", "full", "four-fifths", "three-fifths", "two-fifths", "one-fifth"];
 export declare const COLUMN_SIZES_ALIASES: readonly ["1/3", "2/3", "1/4", "1/2", "3/4", "1/5", "2/5", "3/5", "4/5"];
 export declare const COLUMN_SIZES: readonly ["1", 1, "2", 2, "3", 3, "4", 4, "5", 5, "6", 6, "7", 7, "8", 8, "9", 9, "10", 10, "11", 11, "12", 12, "three-quarters", "two-thirds", "half", "one-third", "one-quarter", "full", "four-fifths", "three-fifths", "two-fifths", "one-fifth", "1/3", "2/3", "1/4", "1/2", "3/4", "1/5", "2/5", "3/5", "4/5"];
@@ -67,3 +68,5 @@ export declare const gapSizeFor: (gap: GapSize | unknown) => {
 export declare const gapSizeForDevices: <T extends object>(props: T) => ClassNameProp[];
 export declare const variableGapClassFor: <T extends object>(gap: GapSize | unknown, props: T) => ClassNameProp;
 export declare const deviceActiveClassFor: (fromDevice: Device | unknown) => ClassNameProp;
+export declare const isColumnSizeNumber: (value: any) => value is "1" | 1 | "2" | 2 | "3" | 3 | "4" | 4 | "5" | 5 | "6" | 6 | "7" | 7 | "8" | 8 | "9" | 9 | "10" | 10 | "11" | 11 | "12" | 12;
+export declare const horizontalClassFor: (sizeNumber: ColumnSizeNumber | unknown) => ClassNameProp;

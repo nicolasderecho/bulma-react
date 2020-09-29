@@ -15,3 +15,4 @@ export declare const rounded: () => JSX.Element;
 export declare const AdditionalProps: () => JSX.Element;
 export declare const state: () => JSX.Element;
 export declare const asElement: () => JSX.Element;
+export declare const grouped: () => JSX.Element;

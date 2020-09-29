@@ -1166,13 +1166,18 @@ var EXTRA_COLORS = ['white', 'dark', 'black'];
 var COLORS = __spreadArrays(MAIN_COLORS, EXTRA_COLORS);
 var SIZES = ['small', 'normal', 'medium', 'large'];
 var HERO_SIZES = __spreadArrays(SIZES, ['fullheight']);
-var SIZE_NUMBERS = ['1', '2', '3', '4', '5', '6'];
+var SIZE_NUMBERS = ['1', 1, '2', 2, '3', 3, '4', 4, '5', 5, '6', 6];
 var BUTTON_POSITIONS = ['centered', 'right'];
+var ICON_POSITIONS = ['left', 'right'];
+var ALIGNMENTS = ['centered', 'right'];
+var HIERARCHIES = ['ancestor', 'parent', 'child'];
 var ELEMENT_STATES = ['hovered', 'focused', 'normal', 'active'];
+var SEPARATORS = ['arrow', 'bullet', 'dot', 'succeeds'];
 var BUTTON_ELEMENTS = ['a', 'input', 'link', 'button', 'div', 'span'];
 var BUTTON_TYPES = ['button', 'submit', 'reset'];
 var HTML_CONVERSIONS = { link: 'a' };
 var IMAGE_DIMENSIONS = ['16x16', '24x24', '32x32', '48x48', '64x64', '96x96', '128x128', 'square', '1by1', '5by4', '4by3', '3by2', '5by3', '16by9', '2by1', '3by1', '4by5', '3by4', '2by3', '3by5', '9by16', '1by2', '1by3'];
+var CHECK_RADIOS = ['radio', 'checkbox'];
 
 var capitalize = function (string) { return string.charAt(0).toUpperCase() + string.slice(1); };
 var dashCase = function (string) { return string.replace(/([A-Z])/g, function ($1) { return "-" + $1.toLowerCase(); }); };
@@ -1184,9 +1189,14 @@ var isColor = function (value) { return COLORS.includes(value); };
 var isElementState = function (value) { return ELEMENT_STATES.includes(value); };
 var isSize = function (value) { return SIZES.includes(value); };
 var isSizeNumber = function (value) { return SIZE_NUMBERS.includes(value); };
+var isIconPosition = function (value) { return ICON_POSITIONS.includes(value); };
 var isButtonPosition = function (value) { return BUTTON_POSITIONS.includes(value); };
 var isEnabled = function (props, key) { return props.hasOwnProperty(key) && props[key] !== false && props[key] !== 'false'; };
 var isDefined = function (obj, prop) { return obj.hasOwnProperty(prop); };
+var isAlignment = function (value) { return ALIGNMENTS.includes(value); };
+var isState = function (value) { return ELEMENT_STATES.includes(value); };
+var isHierarchy = function (value) { return HIERARCHIES.includes(value); };
+var isSeparator = function (value) { return SEPARATORS.includes(value); };
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
 //export const outlinedClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'outlined');
 var colorClassFor = function (color) {
@@ -1206,7 +1216,15 @@ var textClassFor = function (textClassName) {
     var _a;
     return (_a = {}, _a["has-text-" + textClassName] = isColor(textClassName), _a);
 };
+var iconPositionClassFor = function (position) {
+    var _a;
+    return (_a = {}, _a["is-" + position] = isIconPosition(position), _a);
+};
 var htmlElementFor = function (tag, defaultIfNil) { return HTML_CONVERSIONS[tag] || tag || defaultIfNil || 'div'; };
+var separatorClassFor = function (separator) {
+    var _a;
+    return (_a = {}, _a["has-" + separator + "-separator"] = isSeparator(separator), _a);
+};
 var isRenderedAs = function (htmlElement, props, propName) { return (props['as'] === htmlElement) && !!props[propName]; };
 var checkEnabledProperty = function (props, property, _a) {
     var _b;
@@ -1228,6 +1246,23 @@ var sizeNumberClassFor = function (sizeNumber) {
 var buttonPositionClassFor = function (position) {
     var _a;
     return (_a = {}, _a["is-" + position] = isButtonPosition(position), _a);
+};
+var alignmentClassFor = function (alignment, _a) {
+    var _b;
+    var _c = (_a === void 0 ? { prefix: 'is' } : _a).prefix, prefix = _c === void 0 ? 'is' : _c;
+    return (_b = {}, _b[prefix + "-" + alignment] = isAlignment(alignment), _b);
+};
+var groupedClassFor = function (props, propsName) {
+    if (propsName === void 0) { propsName = 'grouped'; }
+    return ({ 'is-grouped': isEnabled(props, propsName) });
+};
+var stateClassFor = function (state) {
+    var _a;
+    return (_a = {}, _a["is-" + state] = isState(state), _a);
+};
+var hierarchyClassFor = function (hierarchy) {
+    var _a;
+    return (_a = {}, _a["is-" + hierarchy] = isHierarchy(hierarchy), _a);
 };
 
 var Button = function (_a) {
@@ -1388,15 +1423,16 @@ Notification.propTypes = {
     light: propTypes.bool
 };
 
-var Content = function (_a) {
-    var className = _a.className, size = _a.size, as = _a.as, props = __rest(_a, ["className", "size", "as"]);
+var Content = function (originalProps) {
+    var className = originalProps.className, size = originalProps.size, as = originalProps.as, centered = originalProps.centered, props = __rest(originalProps, ["className", "size", "as", "centered"]);
     var Element = htmlElementFor(as, 'div');
-    var classes = classNames__default['default'](className, 'content', sizeClassFor(size));
+    var classes = classNames__default['default'](className, 'content', sizeClassFor(size), { 'has-text-centered': isEnabled(originalProps, 'centered') });
     return React.createElement(Element, __assign({ className: classes }, props));
 };
 Content.displayName = 'Content';
 Content.propTypes = {
-    className: propTypes.string
+    className: propTypes.string,
+    centered: propTypes.bool
 };
 
 var Delete = function (_a) {
@@ -1412,26 +1448,27 @@ Delete.propTypes = {
 };
 
 var IconWrapper = function (_a) {
-    var className = _a.className, as = _a.as, size = _a.size, hasText = _a.hasText, props = __rest(_a, ["className", "as", "size", "hasText"]);
+    var className = _a.className, as = _a.as, size = _a.size, hasText = _a.hasText, position = _a.position, props = __rest(_a, ["className", "as", "size", "hasText", "position"]);
     var Element = htmlElementFor(as, 'span');
-    var classes = classNames__default['default'](className, 'icon', sizeClassFor(size), textClassFor(hasText));
+    var classes = classNames__default['default'](className, 'icon', sizeClassFor(size), textClassFor(hasText), iconPositionClassFor(position));
     return React.createElement(Element, __assign({ className: classes }, props));
 };
 IconWrapper.displayName = 'IconWrapper';
 IconWrapper.propTypes = {
     className: propTypes.string,
     size: propTypes.oneOf(SIZES),
-    hasText: propTypes.oneOf(COLORS)
+    hasText: propTypes.oneOf(COLORS),
+    position: propTypes.oneOf(ICON_POSITIONS)
 };
 
 var Image = function (_a) {
     var _b;
     var originalProps = __rest(_a, []);
-    var className = originalProps.className, is = originalProps.is, wrapper = originalProps.wrapper, children = originalProps.children, src = originalProps.src, alt = originalProps.alt, imageClass = originalProps.imageClass, props = __rest(originalProps, ["className", "is", "wrapper", "children", "src", "alt", "imageClass", "rounded"]);
+    var className = originalProps.className, is = originalProps.is, wrapper = originalProps.wrapper, children = originalProps.children, src = originalProps.src, alt = originalProps.alt, imageClass = originalProps.imageClass, props = __rest(originalProps, ["className", "is", "wrapper", "children", "src", "alt", "imageClass", "rounded", "fullwidth"]);
     var imgAlt = alt || '';
     var Wrapper = htmlElementFor(wrapper, 'figure');
-    var classes = classNames__default['default'](className, 'image', (_b = {}, _b["is-" + is] = !!is, _b));
-    var childClasses = classNames__default['default'](imageClass, { 'is-rounded': isEnabled(originalProps, 'rounded') });
+    var classes = classNames__default['default'](className, 'image', (_b = {}, _b["is-" + is] = !!is, _b), checkEnabledProperties(originalProps, ['fullwidth']));
+    var childClasses = classNames__default['default'](imageClass, checkEnabledProperties(originalProps, ['rounded']));
     return React__default['default'].createElement(Wrapper, __assign({ className: classes }, props), !!src
         ? React__default['default'].createElement("img", { src: src, alt: imgAlt, className: childClasses })
         : children);
@@ -1440,6 +1477,8 @@ Image.displayName = 'Image';
 Image.propTypes = {
     className: propTypes.string,
     is: propTypes.oneOf(IMAGE_DIMENSIONS),
+    fullwidth: propTypes.bool,
+    rounded: propTypes.bool,
     children: function (props, propName) {
         if (!!props['src'] && !!props[propName]) {
             return new Error('Image Can receive the src props or a children to render the img element but It shouldn\'t receive both at the same time. Children will be ignored.');
@@ -1669,6 +1708,11 @@ var deviceActiveClassFor = function (fromDevice) {
     var _a;
     return (_a = {}, _a["is-" + fromDevice] = isDevice(fromDevice), _a);
 };
+var isColumnSizeNumber = function (value) { return COLUMN_SIZE_NUMBERS.includes(value); };
+var horizontalClassFor = function (sizeNumber) {
+    var _a;
+    return (_a = {}, _a["is-" + sizeNumber] = isColumnSizeNumber(sizeNumber), _a);
+};
 
 var checkDerivedClasses = function (props, object, device) {
     var _a, _b;
@@ -1768,22 +1812,1264 @@ var DescriptionList = function (props) { return React__default['default'].create
 DescriptionList.displayName = 'DescriptionList';
 DescriptionList.Item = ListItem;
 
+var FieldLabel = function (_a) {
+    var className = _a.className, as = _a.as, size = _a.size, props = __rest(_a, ["className", "as", "size"]);
+    var classes = classNames__default['default'](className, 'field-label', sizeClassFor(size));
+    var Element = htmlElementFor(as, 'div');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+FieldLabel.displayName = 'FieldLabel';
+FieldLabel.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES)
+};
+
+var FieldBody = function (_a) {
+    var className = _a.className, as = _a.as, size = _a.size, props = __rest(_a, ["className", "as", "size"]);
+    var classes = classNames__default['default'](className, 'field-body', sizeClassFor(size));
+    var Element = htmlElementFor(as, 'div');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+FieldBody.displayName = 'FieldBody';
+FieldBody.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES)
+};
+
+var Field = function (originalProps) {
+    var className = originalProps.className, alignment = originalProps.alignment, grouped = originalProps.grouped, addons = originalProps.addons, groupedCentered = originalProps.groupedCentered, groupedRight = originalProps.groupedRight, groupedMultiline = originalProps.groupedMultiline, horizontal = originalProps.horizontal, props = __rest(originalProps, ["className", "alignment", "grouped", "addons", "groupedCentered", "groupedRight", "groupedMultiline", "horizontal"]);
+    var classes = classNames__default['default'](className, 'field', groupedClassFor(originalProps), addonsClassFor(originalProps), { 'is-grouped-centered': isEnabled(originalProps, 'groupedCentered') }, { 'is-grouped-right': isEnabled(originalProps, 'groupedRight') }, { 'is-grouped-multiline': isEnabled(originalProps, 'groupedMultiline') }, checkEnabledProperty(originalProps, 'horizontal'), alignmentClassFor(alignment, { prefix: 'has-addons' }));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+Field.displayName = 'Field';
+Field.propTypes = {
+    className: propTypes.string,
+    alignment: propTypes.oneOf(ALIGNMENTS)
+};
+Field.Label = FieldLabel;
+Field.Body = FieldBody;
+
+var Control = function (originalProps) {
+    var className = originalProps.className, hasIconsLeft = originalProps.hasIconsLeft, hasIconsRight = originalProps.hasIconsRight, expanded = originalProps.expanded, loading = originalProps.loading, size = originalProps.size, props = __rest(originalProps, ["className", "hasIconsLeft", "hasIconsRight", "expanded", "loading", "size"]);
+    var classes = classNames__default['default'](className, 'control', checkEnabledProperties(originalProps, ['expanded', 'loading']), checkEnabledProperties(originalProps, ['hasIconsLeft', 'hasIconsRight'], { prefix: '' }), sizeClassFor(size));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+Control.displayName = 'Control';
+Control.propTypes = {
+    className: propTypes.string,
+    hasIconsLeft: propTypes.bool,
+    hasIconsRight: propTypes.bool,
+    expanded: propTypes.bool,
+    loading: propTypes.bool,
+    size: propTypes.oneOf(SIZES)
+};
+
+var Input = function (originalProps) {
+    var className = originalProps.className, color = originalProps.color, size = originalProps.size, state = originalProps.state, expanded = originalProps.expanded, rounded = originalProps.rounded, isStatic = originalProps.static, htmlSize = originalProps.htmlSize, props = __rest(originalProps, ["className", "color", "size", "state", "expanded", "rounded", "static", "htmlSize"]);
+    var classes = classNames__default['default'](className, 'input', colorClassFor(color), checkEnabledProperties(originalProps, ['expanded', 'rounded', 'static']), sizeClassFor(size), stateClassFor(state));
+    return React__default['default'].createElement("input", __assign({ className: classes }, props, !!htmlSize ? { size: Number(htmlSize) } : null));
+};
+Input.displayName = 'Input';
+Input.propTypes = {
+    className: propTypes.string,
+    color: propTypes.oneOf(COLORS),
+    size: propTypes.oneOf(SIZES),
+    state: propTypes.oneOf(ELEMENT_STATES),
+    expanded: propTypes.bool,
+    rounded: propTypes.bool,
+    static: propTypes.bool
+};
+
+var Help = function (originalProps) {
+    var className = originalProps.className, color = originalProps.color, props = __rest(originalProps, ["className", "color"]);
+    var classes = classNames__default['default'](className, 'help', colorClassFor(color));
+    return React__default['default'].createElement("p", __assign({ className: classes }, props));
+};
+Help.displayName = 'Help';
+Help.propTypes = {
+    className: propTypes.string,
+    color: propTypes.oneOf(COLORS)
+};
+
+var SelectWrapper = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, color = originalProps.color, size = originalProps.size, state = originalProps.state, props = __rest(originalProps, ["className", "as", "color", "size", "state"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'select', checkEnabledProperties(originalProps, ['fullwidth', 'multiple']), colorClassFor(color), sizeClassFor(size), stateClassFor(state));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+SelectWrapper.displayName = 'SelectWrapper';
+SelectWrapper.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES),
+    color: propTypes.oneOf(COLORS),
+    state: propTypes.oneOf(ELEMENT_STATES),
+    fullwidth: propTypes.bool,
+    multiple: propTypes.bool
+};
+
+var Textarea = function (originalProps) {
+    var className = originalProps.className, color = originalProps.color, size = originalProps.size, state = originalProps.state, props = __rest(originalProps, ["className", "color", "size", "state"]);
+    var classes = classNames__default['default'](className, 'textarea', colorClassFor(color), sizeClassFor(size), stateClassFor(state), checkEnabledProperties(originalProps, ['hasFixedSize'], { prefix: '' }));
+    return React__default['default'].createElement("textarea", __assign({ className: classes }, props));
+};
+Textarea.displayName = 'Textarea';
+Textarea.propTypes = {
+    className: propTypes.string,
+    color: propTypes.oneOf(COLORS),
+    size: propTypes.oneOf(SIZES),
+    state: propTypes.oneOf(ELEMENT_STATES)
+};
+
+var SimpleCheckbox = function (_a) {
+    var className = _a.className, children = _a.children, wrapperClassName = _a.wrapperClassName, props = __rest(_a, ["className", "children", "wrapperClassName"]);
+    var classes = classNames__default['default'](className, 'checkbox');
+    var wrapperClasses = classNames__default['default'](wrapperClassName, 'checkbox');
+    return React__default['default'].createElement("label", { className: wrapperClasses },
+        React__default['default'].createElement("input", __assign({ type: 'checkbox', className: classes }, props)),
+        children);
+};
+SimpleCheckbox.displayName = 'SimpleCheckbox';
+SimpleCheckbox.propTypes = {
+    wrapperClassName: propTypes.string
+};
+
+var SimpleRadio = function (_a) {
+    var className = _a.className, children = _a.children, wrapperClassName = _a.wrapperClassName, props = __rest(_a, ["className", "children", "wrapperClassName"]);
+    var classes = classNames__default['default'](className, 'radio');
+    var wrapperClasses = classNames__default['default'](wrapperClassName, 'radio');
+    return React__default['default'].createElement("label", { className: wrapperClasses },
+        React__default['default'].createElement("input", __assign({ type: 'radio', className: classes }, props)),
+        children);
+};
+SimpleRadio.displayName = 'SimpleRadio';
+SimpleRadio.propTypes = {
+    className: propTypes.string
+};
+
+var DisabledFieldset = function (props) {
+    return React__default['default'].createElement("fieldset", __assign({}, props, { disabled: true }));
+};
+DisabledFieldset.displayName = 'DisabledFieldset';
+
+var Container = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, fluid = originalProps.fluid, fullhd = originalProps.fullhd, widescreen = originalProps.widescreen, props = __rest(originalProps, ["className", "as", "fluid", "fullhd", "widescreen"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'container', checkEnabledProperties(originalProps, ['fluid', 'fullhd', 'widescreen']));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Container.displayName = 'Container';
+Container.propTypes = {
+    className: propTypes.string,
+    fluid: propTypes.bool,
+    fullhd: propTypes.bool,
+    widescreen: propTypes.bool
+};
+
+var LevelItem = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, centered = originalProps.centered, props = __rest(originalProps, ["className", "as", "centered"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'level-item', { 'has-text-centered': isEnabled(originalProps, 'centered') });
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+LevelItem.displayName = 'LevelItem';
+LevelItem.propTypes = {
+    className: propTypes.string,
+    centered: propTypes.bool
+};
+
+var LevelLeft = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'level-left');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+LevelLeft.displayName = 'LevelLeft';
+LevelLeft.propTypes = {
+    className: propTypes.string
+};
+
+var LevelRight = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'level-right');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+LevelRight.displayName = 'LevelRight';
+LevelRight.propTypes = {
+    className: propTypes.string
+};
+
+var Level = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, mobile = originalProps.mobile, props = __rest(originalProps, ["className", "as", "mobile"]);
+    var Element = htmlElementFor(as, 'nav');
+    var classes = classNames__default['default'](className, 'level', { 'is-mobile': isEnabled(originalProps, 'mobile') });
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Level.displayName = 'Level';
+Level.propTypes = {
+    className: propTypes.string,
+    mobile: propTypes.bool
+};
+Level.Left = LevelLeft;
+Level.Right = LevelRight;
+Level.Item = LevelItem;
+
+var MediaContent = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'media-content');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+MediaContent.displayName = 'MediaContent';
+MediaContent.propTypes = {
+    className: propTypes.string
+};
+
+var MediaRight = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'media-right');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+MediaRight.displayName = 'MediaRight';
+MediaRight.propTypes = {
+    className: propTypes.string
+};
+
+var MediaLeft = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'media-left');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+MediaLeft.displayName = 'Media';
+MediaLeft.propTypes = {
+    className: propTypes.string
+};
+
+var Media = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'article');
+    var classes = classNames__default['default'](className, 'media');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Media.displayName = 'Media';
+Media.propTypes = {
+    className: propTypes.string
+};
+Media.Left = MediaLeft;
+Media.Content = MediaContent;
+Media.Right = MediaRight;
+
+var Footer = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'footer');
+    var classes = classNames__default['default'](className, 'footer');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Footer.displayName = 'Footer';
+Footer.propTypes = {
+    className: propTypes.string
+};
+
+var Section = function (_a) {
+    var _b;
+    var className = _a.className, as = _a.as, spacing = _a.spacing, props = __rest(_a, ["className", "as", "spacing"]);
+    var Element = htmlElementFor(as, 'section');
+    var classes = classNames__default['default'](className, 'section', (_b = {}, _b["is-" + spacing] = ['medium', 'large'].includes(spacing), _b));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Section.displayName = 'Section';
+Section.propTypes = {
+    className: propTypes.string
+};
+
+var HeroHead = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'hero-head');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+HeroHead.displayName = 'HeroHead';
+HeroHead.propTypes = {
+    className: propTypes.string
+};
+
+var HeroBody = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'hero-body');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+HeroBody.displayName = 'HeroBody';
+HeroBody.propTypes = {
+    className: propTypes.string
+};
+
+var HeroFoot = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'hero-foot');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+HeroFoot.displayName = 'HeroFoot';
+HeroFoot.propTypes = {
+    className: propTypes.string
+};
+
+var Tile = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, hierarchy = originalProps.hierarchy, horizontalSize = originalProps.horizontalSize, vertical = originalProps.vertical, props = __rest(originalProps, ["className", "as", "hierarchy", "horizontalSize", "vertical"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'tile', { 'is-vertical': isEnabled(originalProps, 'vertical') }, hierarchyClassFor(hierarchy), horizontalClassFor(horizontalSize));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+Tile.displayName = 'Tile';
+Tile.propTypes = {
+    className: propTypes.string,
+    hierarchy: propTypes.oneOf(HIERARCHIES),
+    horizontalSize: propTypes.oneOf(COLUMN_SIZE_NUMBERS),
+    vertical: propTypes.bool
+};
+
+var PanelHeading = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'panel-heading');
+    return React__default['default'].createElement("p", __assign({ className: classes }, props));
+};
+PanelHeading.displayName = 'PanelHeading';
+PanelHeading.propTypes = {
+    className: propTypes.string
+};
+
+var PanelBlock = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, active = originalProps.active, props = __rest(originalProps, ["className", "as", "active"]);
+    var Element = htmlElementFor(as, 'div');
+    var classes = classNames__default['default'](className, 'panel-block', checkEnabledProperties(originalProps, ['active']));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+PanelBlock.displayName = 'PanelBlock';
+PanelBlock.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool
+};
+
+var PanelIcon = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'panel-icon');
+    return React__default['default'].createElement("span", __assign({ className: classes }, props));
+};
+PanelIcon.displayName = 'PanelIcon';
+PanelIcon.propTypes = {
+    className: propTypes.string
+};
+
+var PanelTabsItem = function (originalProps) {
+    var className = originalProps.className, active = originalProps.active, props = __rest(originalProps, ["className", "active"]);
+    var classes = classNames__default['default'](className, checkEnabledProperties(originalProps, ['active']));
+    // eslint-disable-next-line
+    return React__default['default'].createElement("a", __assign({ className: classes }, props));
+};
+PanelTabsItem.displayName = 'PanelTabsItem';
+PanelTabsItem.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool
+};
+
+var PanelTabs = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'panel-tabs');
+    return React__default['default'].createElement("p", __assign({ className: classes }, props));
+};
+PanelTabs.displayName = 'PanelTabs';
+PanelTabs.Item = PanelTabsItem;
+PanelTabs.propTypes = {
+    className: propTypes.string
+};
+
+var Panel = function (_a) {
+    var className = _a.className, color = _a.color, props = __rest(_a, ["className", "color"]);
+    var classes = classNames__default['default'](className, 'panel', colorClassFor(color));
+    return React__default['default'].createElement("nav", __assign({ className: classes }, props));
+};
+Panel.displayName = 'Panel';
+Panel.Heading = PanelHeading;
+Panel.Block = PanelBlock;
+Panel.Icon = PanelIcon;
+Panel.Tabs = PanelTabs;
+Panel.propTypes = {
+    className: propTypes.string,
+    color: propTypes.oneOf(COLORS)
+};
+
+var ModalBackground = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'modal-background');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+ModalBackground.displayName = 'ModalBackground';
+ModalBackground.propTypes = {
+    className: propTypes.string
+};
+
+var OutsideClickContext = React__default['default'].createContext({ onOutsideClick: function () { }, isActive: false });
+var OutsideClickProvider = OutsideClickContext.Provider, OutsideClickConsumer = OutsideClickContext.Consumer;
+function usePrevious(value) {
+    var ref = React.useRef();
+    React.useEffect(function () {
+        ref.current = value;
+    });
+    return ref.current;
+}
+function useOutsideAlerter(closeOnClickOutside) {
+    if (closeOnClickOutside === void 0) { closeOnClickOutside = true; }
+    var _a = React.useState(false), clickedOutside = _a[0], setClickedOutside = _a[1];
+    var _b = React.useContext(OutsideClickContext), onOutsideClick = _b.onOutsideClick, isActive = _b.isActive;
+    var ref = React.useRef(null);
+    if (closeOnClickOutside && clickedOutside && isActive) {
+        setClickedOutside(false);
+        window.setTimeout(onOutsideClick, 0);
+    }
+    var handleClickOutside = function (event) {
+        if (closeOnClickOutside && isActive && ref.current && event.target instanceof Node && !ref.current.contains(event.target)) {
+            setClickedOutside(true);
+        }
+    };
+    React.useEffect(function () {
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return function () {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isActive]);
+    return { ref: ref, setClickedOutside: setClickedOutside, clickedOutside: clickedOutside };
+}
+var OutsideAlerter = function (originalProps) {
+    var closeOnClickOutside = originalProps.closeOnClickOutside, props = __rest(originalProps, ["closeOnClickOutside"]);
+    var wrapperRef = useOutsideAlerter(closeOnClickOutside).ref;
+    return React__default['default'].createElement("div", { ref: wrapperRef }, props.children);
+};
+OutsideAlerter.displayName = 'OutsideAlerter';
+var HtmlNotFoundError = function () { throw new Error('Couldn\'t find html dom element'); };
+var _a$2 = function () {
+    var count = 0;
+    var addClipped = function () {
+        count += 1;
+        if (count > 0) {
+            var htmlSelector = document.querySelector('html') || HtmlNotFoundError();
+            htmlSelector.classList.add('is-clipped');
+        }
+    };
+    var removeClipped = function () {
+        count -= 1;
+        if (count <= 0) {
+            var htmlSelector = document.querySelector('html') || HtmlNotFoundError();
+            htmlSelector.classList.remove('is-clipped');
+        }
+    };
+    return { addClipped: addClipped, removeClipped: removeClipped };
+}(), addClipped = _a$2.addClipped, removeClipped = _a$2.removeClipped;
+
+var ModalContent = function (_a) {
+    var className = _a.className, _b = _a.closeOnClickOutside, closeOnClickOutside = _b === void 0 ? true : _b, props = __rest(_a, ["className", "closeOnClickOutside"]);
+    var classes = classNames__default['default'](className, 'modal-content');
+    return React__default['default'].createElement(OutsideAlerter, { closeOnClickOutside: closeOnClickOutside },
+        React__default['default'].createElement("div", __assign({ className: classes }, props)));
+};
+ModalContent.displayName = 'ModalContent';
+ModalContent.propTypes = {
+    className: propTypes.string,
+    closeOnClickOutside: propTypes.bool
+};
+
+var ModalClose = function (_a) {
+    var className = _a.className, size = _a.size, props = __rest(_a, ["className", "size"]);
+    var classes = classNames__default['default'](className, 'modal-close', sizeClassFor(size));
+    return React__default['default'].createElement("button", __assign({ className: classes }, props, { "aria-label": 'close' }));
+};
+ModalClose.displayName = 'ModalClose';
+ModalClose.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES)
+};
+
+var ModalCardHead = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'modal-card-head');
+    return React__default['default'].createElement("header", __assign({ className: classes }, props));
+};
+ModalCardHead.displayName = 'ModalCardHead';
+ModalCardHead.propTypes = {
+    className: propTypes.string
+};
+
+var ModalCardTitle = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'modal-card-title');
+    return React__default['default'].createElement("p", __assign({ className: classes }, props));
+};
+ModalCardTitle.displayName = 'ModalCardTitle';
+ModalCardTitle.propTypes = {
+    className: propTypes.string
+};
+
+var ModalCardBody = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'modal-card-body');
+    return React__default['default'].createElement("section", __assign({ className: classes }, props));
+};
+ModalCardBody.displayName = 'ModalCardBody';
+ModalCardBody.propTypes = {
+    className: propTypes.string
+};
+
+var ModalCardFoot = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'modal-card-foot');
+    return React__default['default'].createElement("footer", __assign({ className: classes }, props));
+};
+ModalCardFoot.displayName = 'ModalCardFoot';
+ModalCardFoot.propTypes = {
+    className: propTypes.string
+};
+
+var ModalCard = function (_a) {
+    var className = _a.className, closeOnClickOutside = _a.closeOnClickOutside, props = __rest(_a, ["className", "closeOnClickOutside"]);
+    var classes = classNames__default['default'](className, 'modal-card');
+    return React__default['default'].createElement(OutsideAlerter, { closeOnClickOutside: closeOnClickOutside },
+        React__default['default'].createElement("div", __assign({ className: classes }, props)),
+        ";");
+};
+ModalCard.displayName = 'ModalCard';
+ModalCard.Head = ModalCardHead;
+ModalCard.Title = ModalCardTitle;
+ModalCard.Body = ModalCardBody;
+ModalCard.Foot = ModalCardFoot;
+ModalCard.propTypes = {
+    className: propTypes.string,
+    closeOnClickOutside: propTypes.bool
+};
+
+var isEscape = function (event) {
+    var key = event.key || event.keyCode;
+    return key === 'Escape' || key === 'Esc' || key === 27;
+};
+var Modal = function (originalProps) {
+    var className = originalProps.className, active = originalProps.active, _a = originalProps.closeModal, closeModal = _a === void 0 ? Function.prototype : _a, _b = originalProps.onOpen, onOpen = _b === void 0 ? Function.prototype : _b, _c = originalProps.onClose, onClose = _c === void 0 ? Function.prototype : _c, _d = originalProps.onMount, onMount = _d === void 0 ? Function.prototype : _d, _e = originalProps.onUnmount, onUnmount = _e === void 0 ? Function.prototype : _e, _f = originalProps.closeOnEscape, closeOnEscape = _f === void 0 ? false : _f, children = originalProps.children, background = originalProps.background, clipped = originalProps.clipped, props = __rest(originalProps, ["className", "active", "closeModal", "onOpen", "onClose", "onMount", "onUnmount", "closeOnEscape", "children", "background", "clipped"]);
+    var previousActive = usePrevious(active);
+    var isOpening = active === true && previousActive !== true;
+    var isClosing = active !== true && previousActive === true;
+    var onKeyDown = React.useCallback(function (event) {
+        if (isEscape(event) && closeOnEscape && active) {
+            closeModal();
+        }
+    }, [closeOnEscape, active]);
+    var onOutsideClick = React.useCallback(function () { return closeModal(); }, [closeModal]);
+    React.useEffect(function () {
+        onMount();
+        return function () { onUnmount(); };
+    }, []);
+    React.useEffect(function () {
+        document.addEventListener('keydown', onKeyDown);
+        return function () {
+            document.removeEventListener('keydown', onKeyDown);
+        };
+    });
+    if (isOpening) {
+        onOpen();
+        if (clipped) {
+            addClipped();
+        }
+    }
+    if (isClosing) {
+        onClose();
+        if (clipped) {
+            removeClipped();
+        }
+    }
+    var classes = classNames__default['default'](className, 'modal', checkEnabledProperties(originalProps, ['active']));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props),
+        React__default['default'].createElement(OutsideClickProvider, { value: { onOutsideClick: onOutsideClick, isActive: !!active } },
+            background === false ? null : React__default['default'].createElement(ModalBackground, null),
+            children));
+};
+Modal.displayName = 'Modal';
+Modal.Background = ModalBackground;
+Modal.Content = ModalContent;
+Modal.Close = ModalClose;
+Modal.Card = ModalCard;
+Modal.propTypes = {
+    closeModal: propTypes.func,
+    onOpen: propTypes.func,
+    onClose: propTypes.func,
+    onMount: propTypes.func,
+    onUnmount: propTypes.func,
+    closeOnEscape: propTypes.bool,
+    clipped: propTypes.bool,
+    background: propTypes.bool
+};
+
+var CheckRadio = React.forwardRef(function (originalProps, ref) {
+    var inputClass = originalProps.inputClass, text = originalProps.text, id = originalProps.id, name = originalProps.name, type = originalProps.type, color = originalProps.color, size = originalProps.size, rtl = originalProps.rtl, circle = originalProps.circle, block = originalProps.block, hasNoBorder = originalProps.hasNoBorder, hasBackgroundColor = originalProps.hasBackgroundColor, htmlSize = originalProps.htmlSize, props = __rest(originalProps, ["inputClass", "text", "id", "name", "type", "color", "size", "rtl", "circle", "block", "hasNoBorder", "hasBackgroundColor", "htmlSize"]);
+    var classes = classNames__default['default'](inputClass, 'is-checkradio', colorClassFor(color), sizeClassFor(size), checkEnabledProperties(originalProps, ['rtl', 'circle', 'block']), checkEnabledProperties(originalProps, ['hasNoBorder', 'hasBackgroundColor'], { prefix: '' }));
+    return React__default['default'].createElement(React__default['default'].Fragment, null,
+        React__default['default'].createElement("input", __assign({ id: id, type: type, className: classes, name: name, ref: ref }, props, !!htmlSize ? { size: Number(htmlSize) } : null)),
+        React__default['default'].createElement("label", { htmlFor: id }, text));
+});
+CheckRadio.displayName = 'CheckRadio';
+CheckRadio.propTypes = {
+    inputClass: propTypes.string,
+    id: propTypes.string.isRequired,
+    name: propTypes.string,
+    type: propTypes.oneOf(CHECK_RADIOS).isRequired,
+    color: propTypes.oneOf(COLORS),
+    size: propTypes.oneOf(SIZES),
+    rtl: propTypes.bool,
+    circle: propTypes.bool,
+    block: propTypes.bool,
+    hasNoBorder: propTypes.bool,
+    hasBackgroundColor: propTypes.bool
+};
+
+var Radio = function (props) {
+    return React__default['default'].createElement(CheckRadio, __assign({ type: 'radio' }, props));
+};
+Radio.displayName = 'Radio';
+Radio.propTypes = {
+    inputClass: propTypes.string,
+    id: propTypes.string.isRequired,
+    name: propTypes.string,
+    color: propTypes.oneOf(COLORS),
+    size: propTypes.oneOf(SIZES),
+    rtl: propTypes.bool,
+    circle: propTypes.bool,
+    block: propTypes.bool,
+    hasNoBorder: propTypes.bool,
+    hasBackgroundColor: propTypes.bool
+};
+
+var CheckBox = React.forwardRef(function (originalProps) {
+    var indeterminate = originalProps.indeterminate, props = __rest(originalProps, ["indeterminate"]);
+    var inputRef = React.useRef(null);
+    React.useEffect(function () {
+        var input = inputRef.current;
+        if (!!input) {
+            input.indeterminate = isEnabled(originalProps, 'indeterminate');
+        }
+    });
+    return React__default['default'].createElement(CheckRadio, __assign({ type: 'checkbox', ref: inputRef }, props));
+});
+CheckBox.displayName = 'CheckBox';
+CheckBox.propTypes = {
+    inputClass: propTypes.string,
+    id: propTypes.string.isRequired,
+    name: propTypes.string,
+    color: propTypes.oneOf(COLORS),
+    size: propTypes.oneOf(SIZES),
+    rtl: propTypes.bool,
+    circle: propTypes.bool,
+    block: propTypes.bool,
+    hasNoBorder: propTypes.bool,
+    hasBackgroundColor: propTypes.bool,
+    indeterminate: propTypes.bool
+};
+
+var BreadcrumbItem = function (originalProps) {
+    var className = originalProps.className, active = originalProps.active, props = __rest(originalProps, ["className", "active"]);
+    var classes = classNames__default['default'](className, checkEnabledProperties(originalProps, ['active']));
+    return React__default['default'].createElement("li", __assign({ className: classes }, props));
+};
+BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool
+};
+
+var Breadcrumb = function (_a) {
+    var className = _a.className, children = _a.children, ulClassName = _a.ulClassName, alignment = _a.alignment, size = _a.size, separator = _a.separator, props = __rest(_a, ["className", "children", "ulClassName", "alignment", "size", "separator"]);
+    var classes = classNames__default['default'](className, 'breadcrumb', alignmentClassFor(alignment), sizeClassFor(size), separatorClassFor(separator));
+    var ulClasses = classNames__default['default'](ulClassName);
+    return React__default['default'].createElement("nav", __assign({ "aria-label": 'breadcrumbs', className: classes }, props),
+        React__default['default'].createElement("ul", { className: ulClasses }, children));
+};
+Breadcrumb.displayName = 'Breadcrumb';
+Breadcrumb.Item = BreadcrumbItem;
+Breadcrumb.propTypes = {
+    className: propTypes.string,
+    alignment: propTypes.oneOf(ALIGNMENTS),
+    size: propTypes.oneOf(SIZES),
+    separator: propTypes.oneOf(SEPARATORS)
+};
+
+var CardImage = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'card-image');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+CardImage.displayName = 'CardImage';
+CardImage.propTypes = {
+    className: propTypes.string
+};
+
+var CardContent = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'card-content');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+CardContent.displayName = 'CardContent';
+CardContent.propTypes = {
+    className: propTypes.string
+};
+
+var CardFooterItem = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var classes = classNames__default['default'](className, 'card-footer-item');
+    var Element = htmlElementFor(as, 'p');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+CardFooterItem.displayName = 'CardFooterItem';
+CardFooterItem.propTypes = {
+    className: propTypes.string
+};
+
+var CardFooter = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'card-footer');
+    return React__default['default'].createElement("footer", __assign({ className: classes }, props));
+};
+CardFooter.displayName = 'CardFooter';
+CardFooter.Item = CardFooterItem;
+CardFooter.propTypes = {
+    className: propTypes.string
+};
+
+var CardHeaderTitle = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, centered = originalProps.centered, props = __rest(originalProps, ["className", "as", "centered"]);
+    var Element = htmlElementFor(as, 'p');
+    var classes = classNames__default['default'](className, 'card-header-title', checkEnabledProperties(originalProps, ['centered']));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+CardHeaderTitle.displayName = 'CardHeaderTitle';
+CardHeaderTitle.propTypes = {
+    className: propTypes.string,
+    centered: propTypes.bool
+};
+
+var CardHeaderIcon = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'span');
+    var classes = classNames__default['default'](className, 'card-header-icon');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+CardHeaderIcon.displayName = 'CardHeaderIcon';
+CardHeaderIcon.propTypes = {
+    className: propTypes.string
+};
+
+var CardHeader = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'card-header');
+    return React__default['default'].createElement("header", __assign({ className: classes }, props));
+};
+CardHeader.displayName = 'CardHeader';
+CardHeader.Title = CardHeaderTitle;
+CardHeader.Icon = CardHeaderIcon;
+CardHeader.propTypes = {
+    className: propTypes.string
+};
+
+var Card = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'card');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+Card.displayName = 'Card';
+Card.Image = CardImage;
+Card.Content = CardContent;
+Card.Footer = CardFooter;
+Card.Header = CardHeader;
+Card.propTypes = {
+    className: propTypes.string
+};
+
+var DropdownTrigger = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'dropdown-trigger');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+DropdownTrigger.displayName = 'DropdownTrigger';
+DropdownTrigger.propTypes = {
+    className: propTypes.string
+};
+
+var DropdownMenu = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'dropdown-menu');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props, { role: 'menu' }));
+};
+DropdownMenu.displayName = 'DropdownMenu';
+DropdownMenu.propTypes = {
+    className: propTypes.string
+};
+
+var DropdownContent = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'dropdown-content');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+DropdownContent.displayName = 'DropdownContent';
+DropdownContent.propTypes = {
+    className: propTypes.string
+};
+
+var DropdownDivider = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'dropdown-divider');
+    return React__default['default'].createElement("hr", __assign({ className: classes }, props));
+};
+DropdownDivider.displayName = 'DropdownDivider';
+DropdownDivider.propTypes = {
+    className: propTypes.string
+};
+
+var DropdownItem = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, active = originalProps.active, props = __rest(originalProps, ["className", "as", "active"]);
+    var Element = htmlElementFor(as, 'a');
+    var classes = classNames__default['default'](className, 'dropdown-item', checkEnabledProperties(originalProps, ['active']));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+DropdownItem.displayName = 'DropdownItem';
+DropdownItem.propTypes = {
+    className: propTypes.string
+};
+
+var Dropdown = function (originalProps) {
+    var className = originalProps.className, active = originalProps.active, up = originalProps.up, right = originalProps.right, hoverable = originalProps.hoverable, props = __rest(originalProps, ["className", "active", "up", "right", "hoverable"]);
+    var classes = classNames__default['default'](className, 'dropdown', checkEnabledProperties(originalProps, ['active', 'up', 'right', 'hoverable']));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+Dropdown.displayName = 'Dropdown';
+Dropdown.Trigger = DropdownTrigger;
+Dropdown.Menu = DropdownMenu;
+Dropdown.Content = DropdownContent;
+Dropdown.Divider = DropdownDivider;
+Dropdown.Item = DropdownItem;
+Dropdown.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool,
+    up: propTypes.bool,
+    right: propTypes.bool,
+    hoverable: propTypes.bool
+};
+
+var MenuLabel = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'menu-label');
+    return React__default['default'].createElement("p", __assign({ className: classes }, props));
+};
+MenuLabel.displayName = 'MenuLabel';
+MenuLabel.propTypes = {
+    className: propTypes.string
+};
+
+var MenuList = function (_a) {
+    var className = _a.className, as = _a.as, props = __rest(_a, ["className", "as"]);
+    var Element = htmlElementFor(as, 'ul');
+    var classes = classNames__default['default'](className, 'menu-list');
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+MenuList.displayName = 'MenuList';
+MenuList.propTypes = {
+    className: propTypes.string
+};
+
+var Menu = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'menu');
+    return React__default['default'].createElement("aside", __assign({ className: classes }, props));
+};
+Menu.displayName = 'Menu';
+Menu.Label = MenuLabel;
+Menu.List = MenuList;
+Menu.propTypes = {
+    className: propTypes.string
+};
+
+var MessageBody = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'message-body');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+MessageBody.displayName = 'MessageBody';
+MessageBody.propTypes = {
+    className: propTypes.string
+};
+
+var MessageHeader = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'message-header');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+MessageHeader.displayName = 'MessageHeader';
+MessageHeader.propTypes = {
+    className: propTypes.string
+};
+
+var Message = function (_a) {
+    var className = _a.className, color = _a.color, size = _a.size, props = __rest(_a, ["className", "color", "size"]);
+    var classes = classNames__default['default'](className, 'message', colorClassFor(color), sizeClassFor(size));
+    return React__default['default'].createElement("article", __assign({ className: classes }, props));
+};
+Message.displayName = 'Message';
+Message.Header = MessageHeader;
+Message.Body = MessageBody;
+Message.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES),
+    color: propTypes.oneOf(COLORS)
+};
+
+var TabsItem = function (originalProps) {
+    var className = originalProps.className, children = originalProps.children, active = originalProps.active, _a = originalProps.includeLink, includeLink = _a === void 0 ? true : _a, props = __rest(originalProps, ["className", "children", "active", "includeLink"]);
+    var classes = classNames__default['default'](className, checkEnabledProperties(originalProps, ['active']));
+    // eslint-disable-next-line
+    var element = includeLink
+        ? React__default['default'].createElement("li", __assign({ className: classes }, props),
+            " ",
+            React__default['default'].createElement("a", null, children),
+            " ")
+        : React__default['default'].createElement("li", __assign({ className: classes }, props, { children: children }));
+    return element;
+};
+TabsItem.displayName = 'TabsItem';
+TabsItem.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool,
+    includeLink: propTypes.bool
+};
+
+var Tabs = function (originalProps) {
+    var className = originalProps.className, size = originalProps.size, alignment = originalProps.alignment, ulClassName = originalProps.ulClassName, children = originalProps.children, boxed = originalProps.boxed, rounded = originalProps.rounded, fullwidth = originalProps.fullwidth, toggle = originalProps.toggle, toggleRounded = originalProps.toggleRounded, props = __rest(originalProps, ["className", "size", "alignment", "ulClassName", "children", "boxed", "rounded", "fullwidth", "toggle", "toggleRounded"]);
+    var classes = classNames__default['default'](className, 'tabs', sizeClassFor(size), alignmentClassFor(alignment), checkEnabledProperties(originalProps, ['boxed', 'rounded', 'fullwidth', 'toggle', 'toggleRounded']));
+    var ulClasses = classNames__default['default'](ulClassName);
+    return React__default['default'].createElement("div", __assign({ className: classes }, props),
+        React__default['default'].createElement("ul", { className: ulClasses }, children));
+};
+Tabs.displayName = 'Tabs';
+Tabs.Item = TabsItem;
+Tabs.propTypes = {
+    className: propTypes.string,
+    ulClassName: propTypes.string,
+    alignment: propTypes.oneOf(ALIGNMENTS),
+    size: propTypes.oneOf(SIZES),
+    boxed: propTypes.bool,
+    rounded: propTypes.bool,
+    fullwidth: propTypes.bool,
+    toggle: propTypes.bool,
+    toggleRounded: propTypes.bool
+};
+
+var NavbarBrand = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'navbar-brand');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+NavbarBrand.displayName = 'NavbarBrand';
+NavbarBrand.propTypes = {
+    className: propTypes.string
+};
+
+var NavbarBurger = function (originalProps) {
+    var className = originalProps.className, active = originalProps.active, props = __rest(originalProps, ["className", "active"]);
+    var classes = classNames__default['default'](className, 'navbar-burger', 'burger', checkEnabledProperties(originalProps, ['active']));
+    return React__default['default'].createElement("a", __assign({ className: classes }, props, { role: 'button', "aria-label": 'menu', "aria-expanded": 'false' }),
+        React__default['default'].createElement("span", { "aria-hidden": 'true' }),
+        React__default['default'].createElement("span", { "aria-hidden": 'true' }),
+        React__default['default'].createElement("span", { "aria-hidden": 'true' }));
+};
+NavbarBurger.displayName = 'NavbarBurger';
+NavbarBurger.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool
+};
+
+var NavbarMenu = function (originalProps) {
+    var className = originalProps.className, active = originalProps.active, props = __rest(originalProps, ["className", "active"]);
+    var classes = classNames__default['default'](className, 'navbar-menu', checkEnabledProperties(originalProps, ['active']));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+NavbarMenu.displayName = 'NavbarMenu';
+NavbarMenu.propTypes = {
+    className: propTypes.string,
+    active: propTypes.bool
+};
+
+var NavbarStart = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'navbar-start');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+NavbarStart.displayName = 'NavbarStart';
+NavbarStart.propTypes = {
+    className: propTypes.string
+};
+
+var NavbarEnd = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'navbar-end');
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+NavbarEnd.displayName = 'NavbarEnd';
+NavbarEnd.propTypes = {
+    className: propTypes.string
+};
+
+var NavbarItem = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, component = originalProps.component, expanded = originalProps.expanded, tab = originalProps.tab, active = originalProps.active, hoverable = originalProps.hoverable, dropdown = originalProps.dropdown, dropdownUp = originalProps.dropdownUp, props = __rest(originalProps, ["className", "as", "component", "expanded", "tab", "active", "hoverable", "dropdown", "dropdownUp"]);
+    var defaultElement = isEnabled(originalProps, 'dropdown') ? 'div' : 'a';
+    var Element = component || htmlElementFor(as, defaultElement);
+    var classes = classNames__default['default'](className, 'navbar-item', checkEnabledProperties(originalProps, ['dropdown', 'dropdownUp'], { prefix: 'has' }), checkEnabledProperties(originalProps, ['expanded', 'tab', 'active', 'hoverable']));
+    return React__default['default'].createElement(Element, __assign({ className: classes }, props));
+};
+NavbarItem.displayName = 'NavbarItem';
+NavbarItem.propTypes = {
+    className: propTypes.string,
+    expanded: propTypes.bool,
+    tab: propTypes.bool,
+    active: propTypes.bool,
+    hoverable: propTypes.bool,
+    dropdown: propTypes.bool,
+    dropdownUp: propTypes.bool
+};
+
+var NavbarLink = function (originalProps) {
+    var className = originalProps.className, arrowless = originalProps.arrowless, props = __rest(originalProps, ["className", "arrowless"]);
+    var classes = classNames__default['default'](className, 'navbar-link', checkEnabledProperties(originalProps, ['arrowless']));
+    // eslint-disable-next-line
+    return React__default['default'].createElement("a", __assign({ className: classes }, props));
+};
+NavbarLink.displayName = 'NavbarLink';
+NavbarLink.propTypes = {
+    className: propTypes.string,
+    arrowless: propTypes.bool
+};
+
+var NavbarDropdown = function (originalProps) {
+    var className = originalProps.className, right = originalProps.right, props = __rest(originalProps, ["className", "right"]);
+    var classes = classNames__default['default'](className, 'navbar-dropdown', checkEnabledProperties(props, ['right']));
+    return React__default['default'].createElement("div", __assign({ className: classes }, props));
+};
+NavbarDropdown.displayName = 'NavbarDropdown';
+NavbarDropdown.propTypes = {
+    className: propTypes.string
+};
+
+var NavbarDivider = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'navbar-divider');
+    return React__default['default'].createElement("hr", __assign({ className: classes }, props));
+};
+NavbarDivider.displayName = 'NavbarDivider';
+NavbarDivider.propTypes = {
+    className: propTypes.string
+};
+
+var Navbar = function (originalProps) {
+    var className = originalProps.className, color = originalProps.color, fixedTop = originalProps.fixedTop, fixedBottom = originalProps.fixedBottom, transparent = originalProps.transparent, spaced = originalProps.spaced, props = __rest(originalProps, ["className", "color", "fixedTop", "fixedBottom", "transparent", "spaced"]);
+    var classes = classNames__default['default'](className, 'navbar', checkEnabledProperties(originalProps, ['fixedTop', 'fixedBottom', 'transparent', 'spaced']), colorClassFor(color));
+    return React__default['default'].createElement("nav", __assign({ className: classes }, props, { role: 'navigation', "aria-label": 'main navigation' }));
+};
+Navbar.displayName = 'Navbar';
+Navbar.Brand = NavbarBrand;
+Navbar.Burger = NavbarBurger;
+Navbar.Menu = NavbarMenu;
+Navbar.Start = NavbarStart;
+Navbar.End = NavbarEnd;
+Navbar.Item = NavbarItem;
+Navbar.Link = NavbarLink;
+Navbar.Dropdown = NavbarDropdown;
+Navbar.Divider = NavbarDivider;
+Navbar.propTypes = {
+    className: propTypes.string,
+    color: propTypes.oneOf(COLORS),
+    fixedTop: propTypes.bool,
+    fixedBottom: propTypes.bool,
+    transparent: propTypes.bool,
+    spaced: propTypes.bool
+};
+
+var PaginationEllipsis = function (_a) {
+    var className = _a.className, text = _a.text, props = __rest(_a, ["className", "text"]);
+    var ellipsisText = text || '...';
+    var classes = classNames__default['default'](className, 'pagination-ellipsis');
+    return React__default['default'].createElement("li", null,
+        React__default['default'].createElement("span", __assign({ className: classes }, props), ellipsisText));
+};
+PaginationEllipsis.displayName = 'PaginationEllipsis';
+PaginationEllipsis.propTypes = {
+    className: propTypes.string,
+    text: propTypes.string
+};
+
+var PaginationPrevious = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'pagination-previous');
+    // eslint-disable-next-line
+    return React__default['default'].createElement("a", __assign({ className: classes }, props));
+};
+PaginationPrevious.displayName = 'PaginationPrevious';
+PaginationPrevious.propTypes = {
+    className: propTypes.string
+};
+
+var PaginationNext = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'pagination-next');
+    // eslint-disable-next-line
+    return React__default['default'].createElement("a", __assign({ className: classes }, props));
+};
+PaginationNext.displayName = 'PaginationNext';
+PaginationNext.propTypes = {
+    className: propTypes.string
+};
+
+var PaginationList = function (_a) {
+    var className = _a.className, props = __rest(_a, ["className"]);
+    var classes = classNames__default['default'](className, 'pagination-list');
+    return React__default['default'].createElement("ul", __assign({ className: classes }, props));
+};
+PaginationList.displayName = 'PaginationList';
+PaginationList.propTypes = {
+    className: propTypes.string
+};
+
+var PaginationLink = function (originalProps) {
+    var className = originalProps.className, as = originalProps.as, current = originalProps.current, props = __rest(originalProps, ["className", "as", "current"]);
+    var Element = htmlElementFor(as, 'a');
+    var classes = classNames__default['default'](className, 'pagination-link', checkEnabledProperties(originalProps, ['current']));
+    return React__default['default'].createElement("li", null,
+        React__default['default'].createElement(Element, __assign({ className: classes }, props)));
+};
+PaginationLink.displayName = 'PaginationLink';
+PaginationLink.propTypes = {
+    className: propTypes.string,
+    current: propTypes.bool
+};
+
+var Pagination = function (originalProps) {
+    var className = originalProps.className, size = originalProps.size, alignment = originalProps.alignment, rounded = originalProps.rounded, props = __rest(originalProps, ["className", "size", "alignment", "rounded"]);
+    var classes = classNames__default['default'](className, 'pagination', sizeClassFor(size), alignmentClassFor(alignment), checkEnabledProperties(originalProps, ['rounded']));
+    return React__default['default'].createElement("nav", __assign({ className: classes }, props, { role: 'navigation', "aria-label": 'pagination' }));
+};
+Pagination.displayName = 'Pagination';
+Pagination.Previous = PaginationPrevious;
+Pagination.Next = PaginationNext;
+Pagination.List = PaginationList;
+Pagination.Link = PaginationLink;
+Pagination.Ellipsis = PaginationEllipsis;
+Pagination.propTypes = {
+    className: propTypes.string,
+    size: propTypes.oneOf(SIZES),
+    alignment: propTypes.oneOf(ALIGNMENTS),
+    rounded: propTypes.bool
+};
+
 exports.Box = Box;
+exports.Breadcrumb = Breadcrumb;
+exports.BreadcrumbItem = BreadcrumbItem;
 exports.Button = Button;
 exports.Buttons = Buttons;
+exports.Card = Card;
+exports.CardContent = CardContent;
+exports.CardFooter = CardFooter;
+exports.CardFooterItem = CardFooterItem;
+exports.CardHeader = CardHeader;
+exports.CardHeaderIcon = CardHeaderIcon;
+exports.CardHeaderTitle = CardHeaderTitle;
+exports.CardImage = CardImage;
+exports.CheckBox = CheckBox;
+exports.CheckRadio = CheckRadio;
 exports.Column = Column;
 exports.Columns = Columns;
+exports.Container = Container;
 exports.Content = Content;
+exports.Control = Control;
 exports.Delete = Delete;
 exports.DescriptionList = DescriptionList;
+exports.DisabledFieldset = DisabledFieldset;
+exports.Dropdown = Dropdown;
+exports.DropdownContent = DropdownContent;
+exports.DropdownDivider = DropdownDivider;
+exports.DropdownItem = DropdownItem;
+exports.DropdownMenu = DropdownMenu;
+exports.DropdownTrigger = DropdownTrigger;
+exports.Field = Field;
+exports.FieldBody = FieldBody;
+exports.FieldLabel = FieldLabel;
+exports.Footer = Footer;
 exports.HeadingElement = HeadingElement;
+exports.Help = Help;
+exports.HeroBody = HeroBody;
+exports.HeroFoot = HeroFoot;
+exports.HeroHead = HeroHead;
 exports.IconWrapper = IconWrapper;
 exports.Image = Image;
+exports.Input = Input;
+exports.Level = Level;
+exports.LevelItem = LevelItem;
+exports.LevelLeft = LevelLeft;
+exports.LevelRight = LevelRight;
 exports.List = List;
-exports.ListItemProps = ListItem;
+exports.ListItem = ListItem;
+exports.Media = Media;
+exports.MediaContent = MediaContent;
+exports.MediaLeft = MediaLeft;
+exports.MediaRight = MediaRight;
+exports.Menu = Menu;
+exports.MenuLabel = MenuLabel;
+exports.MenuList = MenuList;
+exports.Message = Message;
+exports.MessageBody = MessageBody;
+exports.MessageHeader = MessageHeader;
+exports.Modal = Modal;
+exports.ModalBackground = ModalBackground;
+exports.ModalCard = ModalCard;
+exports.ModalCardBody = ModalCardBody;
+exports.ModalCardFoot = ModalCardFoot;
+exports.ModalCardHead = ModalCardHead;
+exports.ModalCardTitle = ModalCardTitle;
+exports.ModalClose = ModalClose;
+exports.ModalContent = ModalContent;
+exports.Navbar = Navbar;
+exports.NavbarBrand = NavbarBrand;
+exports.NavbarBurger = NavbarBurger;
+exports.NavbarDivider = NavbarDivider;
+exports.NavbarDropdown = NavbarDropdown;
+exports.NavbarEnd = NavbarEnd;
+exports.NavbarItem = NavbarItem;
+exports.NavbarLink = NavbarLink;
+exports.NavbarMenu = NavbarMenu;
+exports.NavbarStart = NavbarStart;
 exports.Notification = Notification;
 exports.OrderedList = OrderedList;
+exports.Pagination = Pagination;
+exports.PaginationEllipsis = PaginationEllipsis;
+exports.PaginationLink = PaginationLink;
+exports.PaginationList = PaginationList;
+exports.PaginationNext = PaginationNext;
+exports.PaginationPrevious = PaginationPrevious;
+exports.Panel = Panel;
+exports.PanelBlock = PanelBlock;
+exports.PanelHeading = PanelHeading;
+exports.PanelIcon = PanelIcon;
+exports.PanelTabs = PanelTabs;
+exports.PanelTabsItem = PanelTabsItem;
 exports.ProgressBar = ProgressBar;
+exports.Radio = Radio;
+exports.Section = Section;
+exports.SelectWrapper = SelectWrapper;
+exports.SimpleCheckbox = SimpleCheckbox;
+exports.SimpleRadio = SimpleRadio;
 exports.Subtitle = Subtitle;
 exports.Table = Table;
 exports.TableBody = TableBody;
@@ -1793,8 +3079,12 @@ exports.TableContainer = TableContainer;
 exports.TableFooter = TableFooter;
 exports.TableHead = TableHead;
 exports.TableRow = TableRow;
+exports.Tabs = Tabs;
+exports.TabsItem = TabsItem;
 exports.Tag = Tag;
 exports.Tags = Tags;
+exports.Textarea = Textarea;
+exports.Tile = Tile;
 exports.Title = Title;
 exports.UnorderedList = UnorderedList;
 //# sourceMappingURL=index.js.map

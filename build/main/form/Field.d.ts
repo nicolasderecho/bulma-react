@@ -17,3 +17,4 @@ declare type FieldComponent = React.FC<FieldProps> & {
 };
 declare const Field: FieldComponent;
 export default Field;
+export { Field, FieldProps, FieldComponent };

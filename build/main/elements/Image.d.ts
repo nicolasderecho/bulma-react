@@ -6,6 +6,7 @@ declare type ImageProps = {
     alt?: string;
     imageClass?: string;
     rounded?: boolean;
+    fullwidth?: boolean;
 } & React.ComponentPropsWithoutRef<"figure">;
 declare const Image: React.FC<ImageProps>;
 export default Image;

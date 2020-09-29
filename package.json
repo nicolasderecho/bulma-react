@@ -14,12 +14,13 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rm -r build/* && rollup -c",
     "lint": "standard",
     "format": "prettier-standard --format",
     "test": "jest --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "update-docs": "rm -r ./storybook-static/* && build-storybook",
     "pack-release": "npm run build && npm pack"
   },
   "keywords": [],

@@ -10,7 +10,7 @@ export declare type Size = ElementType<typeof SIZES>;
 export declare type SizePrefix = 'is' | 'are';
 export declare type HeroSize = Size | 'fullheight';
 export declare const HERO_SIZES: HeroSize[];
-export declare const SIZE_NUMBERS: readonly ["1", "2", "3", "4", "5", "6"];
+export declare const SIZE_NUMBERS: readonly ["1", 1, "2", 2, "3", 3, "4", 4, "5", 5, "6", 6];
 export declare type SizeNumber = ElementType<typeof SIZE_NUMBERS>;
 export declare const BUTTON_POSITIONS: readonly ["centered", "right"];
 export declare type ButtonPosition = ElementType<typeof BUTTON_POSITIONS>;
@@ -35,6 +35,8 @@ export declare type ButtonType = ElementType<typeof BUTTON_ELEMENTS>;
 export declare const HTML_CONVERSIONS: {
     readonly link: "a";
 };
-export declare type HtmlElement = Exclude<ButtonElement, 'link'>;
+export declare type HtmlElement = Exclude<ButtonElement, 'link'> | 'hgroup' | 'main' | 'nav' | 'section' | 'header' | 'footer' | 'article' | 'aside' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'ul' | 'ol' | 'dl';
 export declare const IMAGE_DIMENSIONS: readonly ["16x16", "24x24", "32x32", "48x48", "64x64", "96x96", "128x128", "square", "1by1", "5by4", "4by3", "3by2", "5by3", "16by9", "2by1", "3by1", "4by5", "3by4", "2by3", "3by5", "9by16", "1by2", "1by3"];
 export declare type ImageDimension = ElementType<typeof IMAGE_DIMENSIONS>;
+export declare const CHECK_RADIOS: readonly ["radio", "checkbox"];
+export declare type CheckRadio = ElementType<typeof CHECK_RADIOS>;

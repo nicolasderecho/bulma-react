@@ -1,0 +1,20 @@
+import React from 'react';
+import { CheckRadio, Color, Size } from "../helpers/constants";
+declare type RegularInput = React.ComponentPropsWithRef<'input'>;
+declare type CheckRadioProps = {
+    type: CheckRadio;
+    inputClass?: any;
+    color?: Color;
+    size?: Size;
+    text?: string;
+    htmlSize?: number | string;
+    rtl?: boolean;
+    circle?: boolean;
+    block?: boolean;
+    hasNoBorder?: boolean;
+    hasBackgroundColor?: boolean;
+    id: string;
+} & Omit<RegularInput, 'size'>;
+declare const CheckRadio: React.FC<CheckRadioProps>;
+export default CheckRadio;
+export { CheckRadio, CheckRadioProps };

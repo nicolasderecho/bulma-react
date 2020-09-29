@@ -7,3 +7,4 @@ export default _default;
 export declare const basic: () => React.FunctionComponentElement<ImageProps>;
 export declare const rounded: () => React.FunctionComponentElement<ImageProps>;
 export declare const sized: () => React.FunctionComponentElement<ImageProps>;
+export declare const fullwidth: () => React.FunctionComponentElement<ImageProps>;

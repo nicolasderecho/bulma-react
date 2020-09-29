@@ -1,0 +1,32 @@
+import React from 'react';
+import { Color } from "../helpers/constants";
+import { NavbarBrandProps } from "./NavbarBrand";
+import { NavbarBurgerProps } from "./NavbarBurger";
+import { NavbarMenuProps } from "./NavbarMenu";
+import { NavbarStartProps } from "./NavbarStart";
+import { NavbarEndProps } from "./NavbarEnd";
+import { NavbarItemProps } from "./NavbarItem";
+import { NavbarLinkProps } from "./NavbarLink";
+import { NavbarDropdownProps } from "./NavbarDropdown";
+import { NavbarDividerProps } from "./NavbarDivider";
+declare type NavbarProps = React.ComponentPropsWithoutRef<'nav'> & {
+    color?: Color;
+    fixedTop?: boolean;
+    fixedBottom?: boolean;
+    transparent?: boolean;
+    spaced?: boolean;
+};
+declare type NavbarComponent = React.FC<NavbarProps> & {
+    Brand: React.FC<NavbarBrandProps>;
+    Burger: React.FC<NavbarBurgerProps>;
+    Menu: React.FC<NavbarMenuProps>;
+    Start: React.FC<NavbarStartProps>;
+    End: React.FC<NavbarEndProps>;
+    Item: React.FC<NavbarItemProps>;
+    Link: React.FC<NavbarLinkProps>;
+    Dropdown: React.FC<NavbarDropdownProps>;
+    Divider: React.FC<NavbarDividerProps>;
+};
+declare const Navbar: NavbarComponent;
+export default Navbar;
+export { Navbar, NavbarProps, NavbarComponent };
