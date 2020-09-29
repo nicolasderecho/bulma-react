@@ -4,5 +4,11 @@ declare const _default: {
     title: string;
 };
 export default _default;
-export declare const basic: () => React.FunctionComponentElement<ContentProps>;
-export declare const sized: () => JSX.Element;
+export declare const basic: {
+    (): React.FunctionComponentElement<ContentProps>;
+    parameters: any;
+};
+export declare const sized: {
+    (): JSX.Element;
+    parameters: any;
+};

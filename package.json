@@ -21,7 +21,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "update-docs": "rm -r ./storybook-static/* && build-storybook",
-    "pack-release": "npm run build && npm pack"
+    "pack-release": "npm run build && npm pack",
+    "chromatic": "npx chromatic --project-token mxmq12uxu7"
   },
   "keywords": [],
   "author": "",
@@ -44,6 +45,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.1.0",
     "bulma": "^0.9.0",
+    "chromatic": "^5.2.0",
     "classnames": "^2.2.6",
     "jest": "^26.4.2",
     "node-sass": "^4.14.1",

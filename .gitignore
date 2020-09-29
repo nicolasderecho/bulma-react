@@ -4,3 +4,4 @@ coverage/
 .idea/codeStyles/Project.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/bulma-react.iml
+build-storybook.log
