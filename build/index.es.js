@@ -1164,6 +1164,7 @@ var ALIGNMENTS = ['centered', 'right'];
 var HIERARCHIES = ['ancestor', 'parent', 'child'];
 var ELEMENT_STATES = ['hovered', 'focused', 'normal', 'active'];
 var SEPARATORS = ['arrow', 'bullet', 'dot', 'succeeds'];
+var POSITIONS = ['top', 'bottom', 'left', 'right'];
 var BUTTON_ELEMENTS = ['a', 'input', 'link', 'button', 'div', 'span'];
 var BUTTON_TYPES = ['button', 'submit', 'reset'];
 var HTML_CONVERSIONS = { link: 'a' };
@@ -1173,6 +1174,96 @@ var CHECK_RADIOS = ['radio', 'checkbox'];
 var capitalize = function (string) { return string.charAt(0).toUpperCase() + string.slice(1); };
 var dashCase = function (string) { return string.replace(/([A-Z])/g, function ($1) { return "-" + $1.toLowerCase(); }); };
 var camelCase = function (string) { return string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); }); };
+
+var _a;
+var ONE_THIRD_ALIAS = '1/3';
+var TWO_THIRDS_ALIAS = '2/3';
+var ONE_QUARTER_ALIAS = '1/4';
+var HALF_ALIAS = '1/2';
+var THREE_QUARTERS_ALIAS = '3/4';
+var ONE_FIFTH_ALIAS = '1/5';
+var TWO_FIFTHS_ALIAS = '2/5';
+var THREE_FIFTHS_ALIAS = '3/5';
+var FOURT_FIFTHS_ALIAS = '4/5';
+var THREE_QUARTERS = 'three-quarters';
+var TWO_THIRDS = 'two-thirds';
+var HALF = 'half';
+var ONE_THIRD = 'one-third';
+var ONE_QUARTER = 'one-quarter';
+var FULL = 'full';
+var FOURT_FIFTHS = 'four-fifths';
+var THREE_FIFTHS = 'three-fifths';
+var TWO_FIFTHS = 'two-fifths';
+var ONE_FIFTH = 'one-fifth';
+var COLUMN_SIZE_NUMBERS = ['1', 1, '2', 2, '3', 3, '4', 4, '5', 5, '6', 6, '7', 7, '8', 8, '9', 9, '10', 10, '11', 11, '12', 12];
+var ORIGINAL_COLUMN_SIZES = __spreadArrays(COLUMN_SIZE_NUMBERS, [THREE_QUARTERS, TWO_THIRDS, HALF, ONE_THIRD, ONE_QUARTER, FULL, FOURT_FIFTHS, THREE_FIFTHS, TWO_FIFTHS, ONE_FIFTH]);
+var COLUMN_SIZES_ALIASES = [ONE_THIRD_ALIAS, TWO_THIRDS_ALIAS, ONE_QUARTER_ALIAS, HALF_ALIAS, THREE_QUARTERS_ALIAS, ONE_FIFTH_ALIAS, TWO_FIFTHS_ALIAS, THREE_FIFTHS_ALIAS, FOURT_FIFTHS_ALIAS];
+var COLUMN_SIZES = __spreadArrays(ORIGINAL_COLUMN_SIZES, COLUMN_SIZES_ALIASES);
+var MOBILE = 'mobile';
+var TABLET = 'tablet';
+var TOUCH = 'touch';
+var DESKTOP = 'desktop';
+var WIDESCREEN = 'widescreen';
+var FULLHD = 'fullhd';
+var DEVICES = [MOBILE, TABLET, TOUCH, DESKTOP, WIDESCREEN, FULLHD];
+var GAP_SIZES = [0, '0', 1, '1', 2, '2', 3, '3', 4, '4', 5, '5', 6, '6', 7, '7', 8, '8'];
+var COLUMN_SIZES_ALIASES_HASH = (_a = {},
+    _a[ONE_THIRD_ALIAS] = ONE_THIRD,
+    _a[TWO_THIRDS_ALIAS] = TWO_THIRDS,
+    _a[ONE_QUARTER_ALIAS] = ONE_QUARTER,
+    _a[HALF_ALIAS] = HALF,
+    _a[THREE_QUARTERS_ALIAS] = THREE_QUARTERS,
+    _a[TWO_FIFTHS_ALIAS] = TWO_FIFTHS,
+    _a[THREE_FIFTHS_ALIAS] = THREE_FIFTHS,
+    _a[FOURT_FIFTHS_ALIAS] = FOURT_FIFTHS,
+    _a[ONE_FIFTH_ALIAS] = ONE_FIFTH,
+    _a);
+var ORIGINAL_COLUMN_SIZES_HASH = ORIGINAL_COLUMN_SIZES.reduce(function (hash, columnSize) {
+    var _a;
+    return Object.assign({}, hash, (_a = {}, _a[columnSize] = columnSize, _a));
+}, {});
+var COLUMN_SIZES_HASH = Object.assign({}, ORIGINAL_COLUMN_SIZES_HASH, COLUMN_SIZES_ALIASES_HASH);
+var columnDimensionClassFor = function (columnSize, prefix, suffix) {
+    var _a;
+    if (suffix === void 0) { suffix = ''; }
+    var key = prefix + "-" + COLUMN_SIZES_HASH[columnSize];
+    var finalKey = !!suffix ? key + "-" + suffix : key;
+    return _a = {}, _a[finalKey] = !!COLUMN_SIZES_HASH[columnSize], _a;
+};
+var columnSizeClassFor = function (columnSize, suffix) {
+    if (suffix === void 0) { suffix = ''; }
+    return columnDimensionClassFor(columnSize, 'is', suffix);
+};
+var columnOffsetlassFor = function (columnSize, suffix) {
+    if (suffix === void 0) { suffix = ''; }
+    return columnDimensionClassFor(columnSize, 'is-offset', suffix);
+};
+var isDevice = function (value) { return DEVICES.includes(value); };
+var isValidGap = function (value) { return GAP_SIZES.includes(value); };
+var gapSizeFor = function (gap) {
+    var _a;
+    return (_a = {}, _a["is-" + gap] = isValidGap(gap), _a);
+};
+var gapSizeForDevices = function (props) {
+    return DEVICES.map(function (device) {
+        var _a;
+        var gap = props["gap" + capitalize(device)];
+        return _a = {}, _a["is-" + gap + "-" + device] = isValidGap(gap), _a;
+    });
+};
+var variableGapClassFor = function (gap, props) {
+    var deviceGapValidations = DEVICES.map(function (device) { return isValidGap(props["gap" + capitalize(device)]); }).reduce(function (acum, value) { return acum || value; });
+    return { 'is-variable': isValidGap(gap) || deviceGapValidations };
+};
+var deviceActiveClassFor = function (fromDevice) {
+    var _a;
+    return (_a = {}, _a["is-" + fromDevice] = isDevice(fromDevice), _a);
+};
+var isColumnSizeNumber = function (value) { return COLUMN_SIZE_NUMBERS.includes(value); };
+var horizontalClassFor = function (sizeNumber) {
+    var _a;
+    return (_a = {}, _a["is-" + sizeNumber] = isColumnSizeNumber(sizeNumber), _a);
+};
 
 var isNil = function (value) { return value === null || value === undefined; };
 var isNotNil = function (value) { return !isNil(value); };
@@ -1188,6 +1279,7 @@ var isAlignment = function (value) { return ALIGNMENTS.includes(value); };
 var isState = function (value) { return ELEMENT_STATES.includes(value); };
 var isHierarchy = function (value) { return HIERARCHIES.includes(value); };
 var isSeparator = function (value) { return SEPARATORS.includes(value); };
+var isPosition = function (value) { return POSITIONS.includes(value); };
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
 //export const outlinedClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'outlined');
 var colorClassFor = function (color) {
@@ -1254,6 +1346,14 @@ var stateClassFor = function (state) {
 var hierarchyClassFor = function (hierarchy) {
     var _a;
     return (_a = {}, _a["is-" + hierarchy] = isHierarchy(hierarchy), _a);
+};
+var positionClassFor = function (position, _a) {
+    var _b;
+    var _c = _a === void 0 ? { device: '', suffix: '' } : _a, _d = _c.device, device = _d === void 0 ? '' : _d, _e = _c.suffix, suffix = _e === void 0 ? '' : _e;
+    var prefix = 'is-tooltip';
+    var initialClass = !!device && isDevice(device) ? prefix + "-" + position + "-" + device : prefix + "-" + position;
+    var className = !!suffix ? initialClass + "-" + suffix : initialClass;
+    return _b = {}, _b[className] = isPosition(position), _b;
 };
 
 var Button = function (_a) {
@@ -1380,7 +1480,7 @@ Table.Cell = TableCell;
 Table.CellHeader = TableCellHeader;
 Table.Container = TableContainer;
 
-var _a;
+var _a$1;
 var INDETERMINATED_PROP_NAME = 'indeterminated';
 var ProgressBar = function (_a) {
     var originalProps = __rest(_a, []);
@@ -1390,15 +1490,15 @@ var ProgressBar = function (_a) {
     return React.createElement("progress", __assign({ className: classes }, finalProps));
 };
 ProgressBar.displayName = 'ProgressBar';
-ProgressBar.propTypes = (_a = {
+ProgressBar.propTypes = (_a$1 = {
         className: propTypes.string,
         color: propTypes.oneOf(COLORS),
         size: propTypes.oneOf(SIZES)
     },
-    _a[INDETERMINATED_PROP_NAME] = propTypes.bool,
-    _a.value = propTypes.oneOfType([propTypes.number, propTypes.string]),
-    _a.max = propTypes.oneOfType([propTypes.number, propTypes.string]),
-    _a);
+    _a$1[INDETERMINATED_PROP_NAME] = propTypes.bool,
+    _a$1.value = propTypes.oneOfType([propTypes.number, propTypes.string]),
+    _a$1.max = propTypes.oneOfType([propTypes.number, propTypes.string]),
+    _a$1);
 
 var Notification = function (_a) {
     var originalProps = __rest(_a, []);
@@ -1613,96 +1713,6 @@ List.propTypes = {
     unordered: function (props, propName) { return validateFieldsAreMutuallyExclusive(props, propName, mutuallyExclusiveKeysExcept(propName)); },
     description: function (props, propName) { return validateFieldsAreMutuallyExclusive(props, propName, mutuallyExclusiveKeysExcept(propName)); },
     as: propTypes.oneOf(LIST_TYPES)
-};
-
-var _a$1;
-var ONE_THIRD_ALIAS = '1/3';
-var TWO_THIRDS_ALIAS = '2/3';
-var ONE_QUARTER_ALIAS = '1/4';
-var HALF_ALIAS = '1/2';
-var THREE_QUARTERS_ALIAS = '3/4';
-var ONE_FIFTH_ALIAS = '1/5';
-var TWO_FIFTHS_ALIAS = '2/5';
-var THREE_FIFTHS_ALIAS = '3/5';
-var FOURT_FIFTHS_ALIAS = '4/5';
-var THREE_QUARTERS = 'three-quarters';
-var TWO_THIRDS = 'two-thirds';
-var HALF = 'half';
-var ONE_THIRD = 'one-third';
-var ONE_QUARTER = 'one-quarter';
-var FULL = 'full';
-var FOURT_FIFTHS = 'four-fifths';
-var THREE_FIFTHS = 'three-fifths';
-var TWO_FIFTHS = 'two-fifths';
-var ONE_FIFTH = 'one-fifth';
-var COLUMN_SIZE_NUMBERS = ['1', 1, '2', 2, '3', 3, '4', 4, '5', 5, '6', 6, '7', 7, '8', 8, '9', 9, '10', 10, '11', 11, '12', 12];
-var ORIGINAL_COLUMN_SIZES = __spreadArrays(COLUMN_SIZE_NUMBERS, [THREE_QUARTERS, TWO_THIRDS, HALF, ONE_THIRD, ONE_QUARTER, FULL, FOURT_FIFTHS, THREE_FIFTHS, TWO_FIFTHS, ONE_FIFTH]);
-var COLUMN_SIZES_ALIASES = [ONE_THIRD_ALIAS, TWO_THIRDS_ALIAS, ONE_QUARTER_ALIAS, HALF_ALIAS, THREE_QUARTERS_ALIAS, ONE_FIFTH_ALIAS, TWO_FIFTHS_ALIAS, THREE_FIFTHS_ALIAS, FOURT_FIFTHS_ALIAS];
-var COLUMN_SIZES = __spreadArrays(ORIGINAL_COLUMN_SIZES, COLUMN_SIZES_ALIASES);
-var MOBILE = 'mobile';
-var TABLET = 'tablet';
-var TOUCH = 'touch';
-var DESKTOP = 'desktop';
-var WIDESCREEN = 'widescreen';
-var FULLHD = 'fullhd';
-var DEVICES = [MOBILE, TABLET, TOUCH, DESKTOP, WIDESCREEN, FULLHD];
-var GAP_SIZES = [0, '0', 1, '1', 2, '2', 3, '3', 4, '4', 5, '5', 6, '6', 7, '7', 8, '8'];
-var COLUMN_SIZES_ALIASES_HASH = (_a$1 = {},
-    _a$1[ONE_THIRD_ALIAS] = ONE_THIRD,
-    _a$1[TWO_THIRDS_ALIAS] = TWO_THIRDS,
-    _a$1[ONE_QUARTER_ALIAS] = ONE_QUARTER,
-    _a$1[HALF_ALIAS] = HALF,
-    _a$1[THREE_QUARTERS_ALIAS] = THREE_QUARTERS,
-    _a$1[TWO_FIFTHS_ALIAS] = TWO_FIFTHS,
-    _a$1[THREE_FIFTHS_ALIAS] = THREE_FIFTHS,
-    _a$1[FOURT_FIFTHS_ALIAS] = FOURT_FIFTHS,
-    _a$1[ONE_FIFTH_ALIAS] = ONE_FIFTH,
-    _a$1);
-var ORIGINAL_COLUMN_SIZES_HASH = ORIGINAL_COLUMN_SIZES.reduce(function (hash, columnSize) {
-    var _a;
-    return Object.assign({}, hash, (_a = {}, _a[columnSize] = columnSize, _a));
-}, {});
-var COLUMN_SIZES_HASH = Object.assign({}, ORIGINAL_COLUMN_SIZES_HASH, COLUMN_SIZES_ALIASES_HASH);
-var columnDimensionClassFor = function (columnSize, prefix, suffix) {
-    var _a;
-    if (suffix === void 0) { suffix = ''; }
-    var key = prefix + "-" + COLUMN_SIZES_HASH[columnSize];
-    var finalKey = !!suffix ? key + "-" + suffix : key;
-    return _a = {}, _a[finalKey] = !!COLUMN_SIZES_HASH[columnSize], _a;
-};
-var columnSizeClassFor = function (columnSize, suffix) {
-    if (suffix === void 0) { suffix = ''; }
-    return columnDimensionClassFor(columnSize, 'is', suffix);
-};
-var columnOffsetlassFor = function (columnSize, suffix) {
-    if (suffix === void 0) { suffix = ''; }
-    return columnDimensionClassFor(columnSize, 'is-offset', suffix);
-};
-var isDevice = function (value) { return DEVICES.includes(value); };
-var isValidGap = function (value) { return GAP_SIZES.includes(value); };
-var gapSizeFor = function (gap) {
-    var _a;
-    return (_a = {}, _a["is-" + gap] = isValidGap(gap), _a);
-};
-var gapSizeForDevices = function (props) {
-    return DEVICES.map(function (device) {
-        var _a;
-        var gap = props["gap" + capitalize(device)];
-        return _a = {}, _a["is-" + gap + "-" + device] = isValidGap(gap), _a;
-    });
-};
-var variableGapClassFor = function (gap, props) {
-    var deviceGapValidations = DEVICES.map(function (device) { return isValidGap(props["gap" + capitalize(device)]); }).reduce(function (acum, value) { return acum || value; });
-    return { 'is-variable': isValidGap(gap) || deviceGapValidations };
-};
-var deviceActiveClassFor = function (fromDevice) {
-    var _a;
-    return (_a = {}, _a["is-" + fromDevice] = isDevice(fromDevice), _a);
-};
-var isColumnSizeNumber = function (value) { return COLUMN_SIZE_NUMBERS.includes(value); };
-var horizontalClassFor = function (sizeNumber) {
-    var _a;
-    return (_a = {}, _a["is-" + sizeNumber] = isColumnSizeNumber(sizeNumber), _a);
 };
 
 var checkDerivedClasses = function (props, object, device) {
@@ -2465,6 +2475,34 @@ CheckBox.propTypes = {
     indeterminate: propTypes.bool
 };
 
+var Tooltip = function (originalProps) {
+    var _a;
+    var className = originalProps.className, text = originalProps.text, color = originalProps.color, position = originalProps.position, positionMobile = originalProps.positionMobile, positionTablet = originalProps.positionTablet, positionTouch = originalProps.positionTouch, positionDesktop = originalProps.positionDesktop, positionWidescreen = originalProps.positionWidescreen, positionFullhd = originalProps.positionFullhd, positionMobileOnly = originalProps.positionMobileOnly, positionTabletOnly = originalProps.positionTabletOnly, positionTouchOnly = originalProps.positionTouchOnly, positionDesktopOnly = originalProps.positionDesktopOnly, positionWidescreenOnly = originalProps.positionWidescreenOnly, positionFullhdOnly = originalProps.positionFullhdOnly, children = originalProps.children, active = originalProps.active, multiline = originalProps.multiline, props = __rest(originalProps, ["className", "text", "color", "position", "positionMobile", "positionTablet", "positionTouch", "positionDesktop", "positionWidescreen", "positionFullhd", "positionMobileOnly", "positionTabletOnly", "positionTouchOnly", "positionDesktopOnly", "positionWidescreenOnly", "positionFullhdOnly", "children", "active", "multiline"]);
+    var classes = classNames(className, 'tooltip', positionClassFor(position), positionClassFor(positionMobile, { device: 'mobile' }), positionClassFor(positionTablet, { device: 'tablet' }), positionClassFor(positionTouch, { device: 'touch' }), positionClassFor(positionDesktop, { device: 'desktop' }), positionClassFor(positionWidescreen, { device: 'widescreen' }), positionClassFor(positionFullhd, { device: 'fullhd' }), positionClassFor(positionMobileOnly, { device: 'mobile', suffix: 'only' }), positionClassFor(positionTabletOnly, { device: 'tablet', suffix: 'only' }), positionClassFor(positionTouchOnly, { device: 'touch', suffix: 'only' }), positionClassFor(positionDesktopOnly, { device: 'desktop', suffix: 'only' }), positionClassFor(positionWidescreenOnly, { device: 'widescreen', suffix: 'only' }), positionClassFor(positionFullhdOnly, { device: 'fullhd', suffix: 'only' }), checkEnabledProperties(originalProps, ['active', 'multiline'], { prefix: 'is-tooltip' }), (_a = {}, _a["is-tooltip-" + color] = isColor(color), _a));
+    return React.createElement("div", __assign({ className: classes }, props, { "data-tooltip": text }), children);
+};
+Tooltip.displayName = 'Tooltip';
+Tooltip.propTypes = {
+    className: propTypes.string,
+    text: propTypes.string.isRequired,
+    position: propTypes.oneOf(POSITIONS),
+    positionMobile: propTypes.oneOf(POSITIONS),
+    positionTablet: propTypes.oneOf(POSITIONS),
+    positionTouch: propTypes.oneOf(POSITIONS),
+    positionDesktop: propTypes.oneOf(POSITIONS),
+    positionWidescreen: propTypes.oneOf(POSITIONS),
+    positionFullhd: propTypes.oneOf(POSITIONS),
+    color: propTypes.oneOf(COLORS),
+    active: propTypes.bool,
+    multiline: propTypes.bool,
+    positionMobileOnly: propTypes.oneOf(POSITIONS),
+    positionTabletOnly: propTypes.oneOf(POSITIONS),
+    positionTouchOnly: propTypes.oneOf(POSITIONS),
+    positionDesktopOnly: propTypes.oneOf(POSITIONS),
+    positionWidescreenOnly: propTypes.oneOf(POSITIONS),
+    positionFullhdOnly: propTypes.oneOf(POSITIONS)
+};
+
 var BreadcrumbItem = function (originalProps) {
     var className = originalProps.className, active = originalProps.active, props = __rest(originalProps, ["className", "active"]);
     var classes = classNames(className, checkEnabledProperties(originalProps, ['active']));
@@ -2965,5 +3003,5 @@ Pagination.propTypes = {
     rounded: propTypes.bool
 };
 
-export { Box, Breadcrumb, BreadcrumbItem, Button, Buttons, Card, CardContent, CardFooter, CardFooterItem, CardHeader, CardHeaderIcon, CardHeaderTitle, CardImage, CheckBox, CheckRadio, Column, Columns, Container, Content, Control, Delete, DescriptionList, DisabledFieldset, Dropdown, DropdownContent, DropdownDivider, DropdownItem, DropdownMenu, DropdownTrigger, Field, FieldBody, FieldLabel, Footer, HeadingElement, Help, HeroBody, HeroFoot, HeroHead, IconWrapper, Image, Input, Level, LevelItem, LevelLeft, LevelRight, List, ListItem, Media, MediaContent, MediaLeft, MediaRight, Menu, MenuLabel, MenuList, Message, MessageBody, MessageHeader, Modal, ModalBackground, ModalCard, ModalCardBody, ModalCardFoot, ModalCardHead, ModalCardTitle, ModalClose, ModalContent, Navbar, NavbarBrand, NavbarBurger, NavbarDivider, NavbarDropdown, NavbarEnd, NavbarItem, NavbarLink, NavbarMenu, NavbarStart, Notification, OrderedList, Pagination, PaginationEllipsis, PaginationLink, PaginationList, PaginationNext, PaginationPrevious, Panel, PanelBlock, PanelHeading, PanelIcon, PanelTabs, PanelTabsItem, ProgressBar, Radio, Section, SelectWrapper, SimpleCheckbox, SimpleRadio, Subtitle, Table, TableBody, TableCell, TableCellHeader, TableContainer, TableFooter, TableHead, TableRow, Tabs, TabsItem, Tag, Tags, Textarea, Tile, Title, UnorderedList };
+export { Box, Breadcrumb, BreadcrumbItem, Button, Buttons, Card, CardContent, CardFooter, CardFooterItem, CardHeader, CardHeaderIcon, CardHeaderTitle, CardImage, CheckBox, CheckRadio, Column, Columns, Container, Content, Control, Delete, DescriptionList, DisabledFieldset, Dropdown, DropdownContent, DropdownDivider, DropdownItem, DropdownMenu, DropdownTrigger, Field, FieldBody, FieldLabel, Footer, HeadingElement, Help, HeroBody, HeroFoot, HeroHead, IconWrapper, Image, Input, Level, LevelItem, LevelLeft, LevelRight, List, ListItem, Media, MediaContent, MediaLeft, MediaRight, Menu, MenuLabel, MenuList, Message, MessageBody, MessageHeader, Modal, ModalBackground, ModalCard, ModalCardBody, ModalCardFoot, ModalCardHead, ModalCardTitle, ModalClose, ModalContent, Navbar, NavbarBrand, NavbarBurger, NavbarDivider, NavbarDropdown, NavbarEnd, NavbarItem, NavbarLink, NavbarMenu, NavbarStart, Notification, OrderedList, Pagination, PaginationEllipsis, PaginationLink, PaginationList, PaginationNext, PaginationPrevious, Panel, PanelBlock, PanelHeading, PanelIcon, PanelTabs, PanelTabsItem, ProgressBar, Radio, Section, SelectWrapper, SimpleCheckbox, SimpleRadio, Subtitle, Table, TableBody, TableCell, TableCellHeader, TableContainer, TableFooter, TableHead, TableRow, Tabs, TabsItem, Tag, Tags, Textarea, Tile, Title, Tooltip, UnorderedList };
 //# sourceMappingURL=index.es.js.map

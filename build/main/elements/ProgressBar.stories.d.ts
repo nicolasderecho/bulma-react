@@ -4,19 +4,7 @@ declare const _default: {
     title: string;
 };
 export default _default;
-export declare const basic: {
-    (): React.FunctionComponentElement<ProgressBarProps>;
-    parameters: any;
-};
-export declare const colored: {
-    (): JSX.Element;
-    parameters: any;
-};
-export declare const sized: {
-    (): JSX.Element;
-    parameters: any;
-};
-export declare const indeterminated: {
-    (): JSX.Element;
-    parameters: any;
-};
+export declare const basic: () => React.FunctionComponentElement<ProgressBarProps>;
+export declare const colored: () => JSX.Element;
+export declare const sized: () => JSX.Element;
+export declare const indeterminated: () => JSX.Element;

@@ -60,13 +60,13 @@ export declare const COLUMN_SIZES_HASH: {
 export declare const columnDimensionClassFor: (columnSize: ColumnSize | unknown, prefix: string, suffix?: string) => ClassNameProp;
 export declare const columnSizeClassFor: (columnSize: ColumnSize | unknown, suffix?: string) => ClassNameProp;
 export declare const columnOffsetlassFor: (columnSize: ColumnSize | unknown, suffix?: string) => ClassNameProp;
-export declare const isDevice: (value: any) => value is "touch" | "mobile" | "tablet" | "desktop" | "widescreen" | "fullhd";
-export declare const isValidGap: (value: any) => value is 0 | 8 | 6 | 2 | 3 | 1 | 4 | 5 | "1" | "2" | "3" | "4" | "5" | "6" | "0" | 7 | "7" | "8";
+export declare const isDevice: (value: any) => value is "mobile" | "tablet" | "touch" | "desktop" | "widescreen" | "fullhd";
+export declare const isValidGap: (value: any) => value is 0 | "1" | 1 | "2" | 2 | "3" | 3 | "4" | 4 | "5" | 5 | "6" | 6 | "7" | 7 | "8" | 8 | "0";
 export declare const gapSizeFor: (gap: GapSize | unknown) => {
     [x: string]: boolean;
 };
 export declare const gapSizeForDevices: <T extends object>(props: T) => ClassNameProp[];
 export declare const variableGapClassFor: <T extends object>(gap: GapSize | unknown, props: T) => ClassNameProp;
 export declare const deviceActiveClassFor: (fromDevice: Device | unknown) => ClassNameProp;
-export declare const isColumnSizeNumber: (value: any) => value is 8 | 6 | 2 | 3 | 1 | 4 | 5 | "1" | "2" | "3" | "4" | "5" | "6" | 12 | 7 | "7" | "8" | "9" | 9 | "10" | 10 | "11" | 11 | "12";
+export declare const isColumnSizeNumber: (value: any) => value is "1" | 1 | "2" | 2 | "3" | 3 | "4" | 4 | "5" | 5 | "6" | 6 | "7" | 7 | "8" | 8 | "9" | 9 | "10" | 10 | "11" | 11 | "12" | 12;
 export declare const horizontalClassFor: (sizeNumber: ColumnSizeNumber | unknown) => ClassNameProp;

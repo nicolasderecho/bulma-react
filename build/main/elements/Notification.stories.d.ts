@@ -4,15 +4,6 @@ declare const _default: {
     title: string;
 };
 export default _default;
-export declare const basic: {
-    (): React.FunctionComponentElement<NotificationProps>;
-    parameters: any;
-};
-export declare const colored: {
-    (): JSX.Element;
-    parameters: any;
-};
-export declare const lighted: {
-    (): JSX.Element;
-    parameters: any;
-};
+export declare const basic: () => React.FunctionComponentElement<NotificationProps>;
+export declare const colored: () => JSX.Element;
+export declare const lighted: () => JSX.Element;

@@ -1,0 +1,24 @@
+import React from 'react';
+import { Color, ElementPosition } from "../helpers/constants";
+declare type TooltipProps = React.ComponentPropsWithoutRef<'div'> & {
+    text: string;
+    position?: ElementPosition;
+    positionMobile?: ElementPosition;
+    positionTablet?: ElementPosition;
+    positionTouch?: ElementPosition;
+    positionDesktop?: ElementPosition;
+    positionWidescreen?: ElementPosition;
+    positionFullhd?: ElementPosition;
+    color?: Color;
+    active?: boolean;
+    multiline?: boolean;
+    positionMobileOnly?: ElementPosition;
+    positionTabletOnly?: ElementPosition;
+    positionTouchOnly?: ElementPosition;
+    positionDesktopOnly?: ElementPosition;
+    positionWidescreenOnly?: ElementPosition;
+    positionFullhdOnly?: ElementPosition;
+};
+declare const Tooltip: React.FC<TooltipProps>;
+export default Tooltip;
+export { Tooltip, TooltipProps };
