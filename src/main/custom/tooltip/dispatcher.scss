@@ -1,0 +1,56 @@
+@each $direction in top, right, bottom, left {
+
+  @include mobile {
+    .tooltip.is-tooltip-#{$direction}-mobile {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include tablet {
+    .tooltip.is-tooltip-#{$direction}-tablet {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include tablet-only {
+    .tooltip.is-tooltip-#{$direction}-tablet-only {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include touch {
+    .tooltip.is-tooltip-#{$direction}-touch {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include desktop {
+    .tooltip.is-tooltip-#{$direction}-desktop {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include desktop-only {
+    .tooltip.is-tooltip-#{$direction}-desktop-only {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include widescreen {
+    .tooltip.is-tooltip-#{$direction}-widescreen {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include widescreen-only {
+    .tooltip.is-tooltip-#{$direction}-widescreen-only {
+      @include direction(#{$direction});
+    }
+  }
+
+  @include fullhd {
+    .tooltip.is-tooltip-#{$direction}-fullhd {
+      @include direction(#{$direction});
+    }
+  }
+}

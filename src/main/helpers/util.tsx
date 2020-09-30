@@ -20,10 +20,11 @@ import {
   HeroSize,
   HERO_SIZES,
   Hierarchy, HIERARCHIES,
-  Separator, SEPARATORS
+  Separator, SEPARATORS, POSITIONS
 } from "./constants";
 import {dashCase} from "./generic_helpers";
 import React from "react";
+import {isDevice} from "./column_utils";
 
 export const isNil= <T,>(value: T): boolean => value === null || value === undefined;
 export const isNotNil = <T,>(value: T): boolean => !isNil(value);
@@ -40,6 +41,7 @@ export const isAlignment = (value: any): value is Alignment => ALIGNMENTS.includ
 export const isState = (value: any): value is ElementState => ELEMENT_STATES.includes(value);
 export const isHierarchy = (value: any): value is Hierarchy => HIERARCHIES.includes(value);
 export const isSeparator = (value: any): value is Separator => SEPARATORS.includes(value);
+export const isPosition = (value: any): value is Position => POSITIONS.includes(value);
 
 export const buildSingularClassNameProp = <T extends object>(props: T, name: string): ClassNameProp => ({ [`is-${name}`]: isEnabled(props, name) });
 //export const lightClassFor = <T extends object>(props: T): ClassNameProp => buildSingularClassNameProp(props, 'light');
@@ -77,3 +79,10 @@ export const groupedClassFor = <T extends object>(props: T, propsName = 'grouped
 export const stateClassFor = (state: ElementState | unknown): ClassNameProp => ({ [`is-${state}`]: isState(state) });
 
 export const hierarchyClassFor = (hierarchy: Hierarchy | unknown): ClassNameProp => ({ [`is-${hierarchy}`]: isHierarchy(hierarchy) });
+
+export const positionClassFor = (position: Position | unknown, { device = '', suffix = '' } = { device: '', suffix: ''}): ClassNameProp => {
+  const prefix = 'is-tooltip';
+  const initialClass = !!device && isDevice(device) ? `${prefix}-${position}-${device}` : `${prefix}-${position}`;
+  const className = !!suffix ? `${initialClass}-${suffix}` : initialClass;
+  return { [className]: isPosition(position) };
+};

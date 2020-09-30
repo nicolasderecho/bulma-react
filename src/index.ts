@@ -64,6 +64,7 @@ import ModalCardHead from "./main/components/ModalCardHead";
 import CheckRadio from "./main/custom/CheckRadio";
 import Radio from "./main/custom/Radio";
 import CheckBox from "./main/custom/Checkbox";
+import Tooltip from "./main/custom/Tooltip";
 
 //Components
 export { Breadcrumb } from "./main/components/Breadcrumb";
@@ -136,5 +137,6 @@ export {
 export {
   CheckRadio,
   Radio,
-  CheckBox
+  CheckBox,
+  Tooltip
 }
