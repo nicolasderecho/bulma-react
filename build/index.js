@@ -10,6 +10,8 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var classNames__default = /*#__PURE__*/_interopDefaultLegacy(classNames);
 
+console.log('Only used to convert scss to css with rollup');
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -1511,6 +1513,7 @@ ProgressBar.propTypes = (_a$1 = {
 
 var Notification = function (_a) {
     var originalProps = __rest(_a, []);
+    React.useEffect(function () { return console.log('Notification Rendered'); });
     var className = originalProps.className, as = originalProps.as, color = originalProps.color, props = __rest(originalProps, ["className", "as", "color"]);
     var Element = htmlElementFor(as, 'div');
     var classes = classNames__default['default'](className, 'notification', colorClassFor(color), checkEnabledProperties(originalProps, ['light']));
@@ -2458,9 +2461,9 @@ Radio.propTypes = {
     hasBackgroundColor: propTypes.bool
 };
 
-var CheckBox = React.forwardRef(function (originalProps) {
+var CheckBox = React.forwardRef(function (originalProps, ref) {
     var indeterminate = originalProps.indeterminate, props = __rest(originalProps, ["indeterminate"]);
-    var inputRef = React.useRef(null);
+    var inputRef = ref || React.useRef(null);
     React.useEffect(function () {
         var input = inputRef.current;
         if (!!input) {

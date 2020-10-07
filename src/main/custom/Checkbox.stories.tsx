@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {CheckBox, Control, Field} from "../../index";
 import {COLORS, SIZES} from "../helpers/constants";
+import {useRef} from "react";
 
 export default { title: 'Custom/Checkbox' }
 
@@ -91,11 +92,18 @@ export const size = () => {
 }
 
 export const indeterminate = () => {
+  const ref = useRef(null);
   return <React.Fragment>
     <Field>
       <Control>
         <h1>Indeterminate</h1>
         <CheckBox id={'blue'} indeterminate text={'Blue'} color={'info'} />
+      </Control>
+    </Field>
+    <Field>
+      <Control>
+        <h1>Indeterminate with custom ref</h1>
+        <CheckBox id={'red'} indeterminate text={'Red'} color={'danger'} ref={ref} />
       </Control>
     </Field>
   </React.Fragment>

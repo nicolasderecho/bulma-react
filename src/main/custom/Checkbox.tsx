@@ -8,9 +8,9 @@ type CheckBoxProps = Omit<CheckRadioProps, 'type'> & {
   indeterminate?: boolean;
 };
 
-const CheckBox: React.FC<CheckBoxProps> = forwardRef((originalProps) => {
+const CheckBox: React.FC<CheckBoxProps> = forwardRef((originalProps, ref: React.RefObject<HTMLInputElement>) => {
   const {indeterminate, ...props} = originalProps
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = ref || useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const input = inputRef.current;

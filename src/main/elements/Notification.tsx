@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {Color, COLORS, HtmlElement} from "../helpers/constants";
@@ -11,6 +11,9 @@ type NotificationProps = {
 } & React.ComponentPropsWithoutRef<"div">
 
 const Notification: React.FC<NotificationProps> = ({ ...originalProps }) => {
+
+  useEffect(() => console.log('Notification Rendered'))
+
   const { className, as, color, ...props } = originalProps;
   const Element = htmlElementFor(as, 'div');
   const classes = classNames(className, 'notification', colorClassFor(color), checkEnabledProperties(originalProps, ['light']) );

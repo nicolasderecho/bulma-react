@@ -1,3 +1,7 @@
+//Styles
+import './styles.js'
+
+//Elements
 import Button from './main/elements/Button'
 import Box from './main/elements/Box';
 import Table from "./main/elements/Table";

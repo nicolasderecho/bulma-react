@@ -1,4 +1,10 @@
-import React, {RefObject, useContext, useEffect, useRef, useState} from "react";
+import React, {
+  RefObject,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 const OutsideClickContext = React.createContext({onOutsideClick: () => {}, isActive: false});
 const { Provider: OutsideClickProvider, Consumer: OutsideClickConsumer } = OutsideClickContext;

@@ -1,5 +1,7 @@
-import React, { createElement, useRef, useEffect, useState, useContext, useCallback, forwardRef } from 'react';
+import React, { createElement, useEffect, useRef, useState, useContext, useCallback, forwardRef } from 'react';
 import classNames from 'classnames';
+
+console.log('Only used to convert scss to css with rollup');
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1502,6 +1504,7 @@ ProgressBar.propTypes = (_a$1 = {
 
 var Notification = function (_a) {
     var originalProps = __rest(_a, []);
+    useEffect(function () { return console.log('Notification Rendered'); });
     var className = originalProps.className, as = originalProps.as, color = originalProps.color, props = __rest(originalProps, ["className", "as", "color"]);
     var Element = htmlElementFor(as, 'div');
     var classes = classNames(className, 'notification', colorClassFor(color), checkEnabledProperties(originalProps, ['light']));
@@ -2449,9 +2452,9 @@ Radio.propTypes = {
     hasBackgroundColor: propTypes.bool
 };
 
-var CheckBox = forwardRef(function (originalProps) {
+var CheckBox = forwardRef(function (originalProps, ref) {
     var indeterminate = originalProps.indeterminate, props = __rest(originalProps, ["indeterminate"]);
-    var inputRef = useRef(null);
+    var inputRef = ref || useRef(null);
     useEffect(function () {
         var input = inputRef.current;
         if (!!input) {
