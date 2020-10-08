@@ -8,6 +8,16 @@ You can see a storybook [Demo Here](https://5f729b15b2481d0022d607c6-vewzpaziom.
 
 ...coming soon...
 
+# Extensions
+
+This library also includes react components for some of the [Bulma Extensions](https://bulma.io/extensions/)
+
+## Current supported extensions:
+| name | link |
+| ------------- | ------------- |
+| bulma-checkradio  | [Wikiki Bulma Check Radio](https://wikiki.github.io/form/checkradio/) |
+| tooltip  | [Wikiki Bulma tooltip](https://github.com/Wikiki/bulma-tooltip) |
+
 
 # Honorable Mention
 

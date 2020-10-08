@@ -1,29 +1,31 @@
 {
   "name": "bulma-react-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "style": "build/css/bulma-react-js.css",
-  "sass": "src/styles/index.scss",
+  "sass": "styles/index.scss",
   "repository": "https://github.com/nicolasderecho/bulma-react",
   "files": [
     "types",
-    "src/styles",
-    "styles.scss",
+    "styles",
     "build",
     "tsconfig.json"
   ],
   "scripts": {
-    "build": "touch build/remove && rm -r build/* && rollup -c",
+    "build": "touch build/remove && rm -r build/* && rollup -c && rm -rf $INIT_CWD/build/main/__tests__",
     "lint": "standard",
     "format": "prettier-standard --format",
     "test": "jest --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "update-docs": "rm -r ./storybook-static/* && build-storybook",
-    "pack-release": "npm run build && npm pack",
+    "pack-prepare": "cp -r $INIT_CWD/src/styles $INIT_CWD/styles",
+    "pack-release": "npm run pack-prepare && npm pack && npm run pack-after",
+    "pack-after": "rm -rf $INIT_CWD/styles",
+    "release": "npm run build && npm run pack-prepare && npm publish && npm run pack-after",
     "chromatic": "npx chromatic --project-token mxmq12uxu7"
   },
   "keywords": [],
@@ -74,6 +76,18 @@
     "react-dom": "^16.13.1",
     "bulma": "^0.9.0",
     "classnames": "^2.2.6"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "jest": {
     "preset": "ts-jest",

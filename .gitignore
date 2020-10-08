@@ -5,3 +5,6 @@ coverage/
 .idea/inspectionProfiles/Project_Default.xml
 .idea/bulma-react.iml
 build-storybook.log
+bulma-react-js-*.tgz
+styles/
+build/main/__tests__/
