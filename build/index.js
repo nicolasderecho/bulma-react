@@ -10,8 +10,6 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var classNames__default = /*#__PURE__*/_interopDefaultLegacy(classNames);
 
-console.log('Only used to convert scss to css with rollup');
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use

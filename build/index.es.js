@@ -1,8 +1,6 @@
 import React, { createElement, useEffect, useRef, useState, useContext, useCallback, forwardRef } from 'react';
 import classNames from 'classnames';
 
-console.log('Only used to convert scss to css with rollup');
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use

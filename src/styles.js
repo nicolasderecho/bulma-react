@@ -1,3 +1,4 @@
 import './styles.scss';
 
-console.log('Only used to convert scss to css with rollup');
+//This file is only used to convert scss to css with rollup
+void(0);
